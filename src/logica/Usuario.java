@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class Usuario {
 	
 	private int ci = 0;
@@ -7,6 +9,7 @@ public class Usuario {
 	private String apellido;
 	private String mail;
 	private String password;
+	private ArrayList<Prestamo> prestamos;
 	
 	// Método para crear Usuario
 	
@@ -53,6 +56,14 @@ public class Usuario {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public ArrayList<Prestamo> getPrestamos() {
+		return prestamos;
+	}
+
+	public void setPrestamos(ArrayList<Prestamo> prestamos) {
+		this.prestamos = prestamos;
 	}
 
 }
