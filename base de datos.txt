@@ -1,0 +1,14 @@
+
+Base de datos 
+
+create database Proyecto;
+use Proyecto;
+
+
+
+Tablas
+
+create table Usuario(Ci integer , Id integer , Nombre varchar (20) , Mail varchar (20) , Password varchar (20) , primary key (Id,Ci) );
+
+create table bibli
+

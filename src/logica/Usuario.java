@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Usuario {
 	
-	private int ci = 0;
+	private int ci = 0; 
 	private String nombre;
 	private String apellido;
 	private String mail;
