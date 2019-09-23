@@ -4,17 +4,19 @@ import java.util.ArrayList;
 
 public class Usuario {
 	
-	private int ci = 0;
+	private int id;
+	private int CI;
 	private String nombre;
 	private String apellido;
 	private String mail;
 	private String password;
 	private ArrayList<Prestamo> prestamos;
 	
-	// Método para crear Usuario
+	// Constructor
 	
-	Usuario(int ci, String nombre, String apellido, String mail, String password){
-		this.ci = ci;
+	Usuario(int id, int CI, String nombre, String apellido, String mail, String password){
+		this.id = id;
+		this.CI = CI;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.mail = mail;
@@ -23,11 +25,18 @@ public class Usuario {
 	
 	// Getters and Setters
 	
-	public int getCi() {
-		return ci;
+	public int getId() {
+		return id;
 	}
-	public void setCi(int ci) {
-		this.ci = ci;
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getCI() {
+		return CI;
+	}
+	public void setCI(int CI) {
+		this.CI = CI;
 	}
 	
 	public String getNombre() {
@@ -61,9 +70,7 @@ public class Usuario {
 	public ArrayList<Prestamo> getPrestamos() {
 		return prestamos;
 	}
-
 	public void setPrestamos(ArrayList<Prestamo> prestamos) {
 		this.prestamos = prestamos;
 	}
-
 }

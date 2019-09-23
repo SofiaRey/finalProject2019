@@ -2,10 +2,10 @@ package logica;
 
 public class Bibliotecario extends Usuario {
 	
-	// Constructor de Bibliotecario
+	// Constructor
 
-	Bibliotecario(int ci, String nombre, String apellido, String mail, String password) {
-		super(ci, nombre, apellido, mail, password);
+	Bibliotecario(int id, int CI, String nombre, String apellido, String mail, String password) {
+		super(id, CI, nombre, apellido, mail, password);
 	}
 
 }

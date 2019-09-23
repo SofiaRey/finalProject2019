@@ -1,22 +1,22 @@
 package logica;
 
 public class Profesor extends Usuario {
-	private String orient;
 	
-	// Constructor de Profesor
+	private Orientacion orientacion;
 	
-	public Profesor(String orient, int ci, String nombre, String apellido, String mail, String password) {
-		super(ci, nombre, apellido, mail, password);
-		this.orient = orient;
+	// Constructor
+	
+	public Profesor(int id, int CI, String nombre, String apellido, String mail, String password, Orientacion orientacion) {
+		super(id, CI, nombre, apellido, mail, password);
+		this.orientacion = orientacion;
 	}
 	
 	// Getters and Setters
 	
-	public String getOrient() {
-		return orient;
+	public Orientacion getOrientacion() {
+		return orientacion;
 	}
-
 	public void setOrient(String orient) {
-		this.orient = orient;
+		this.orientacion = orientacion;
 	}
 }
