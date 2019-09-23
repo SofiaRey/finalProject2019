@@ -21,13 +21,6 @@ public class Notificacion {
 	
 	// Getters and Setters
 	
-	public Date getFechaSolicitado() {
-		return fechaSolicitado;
-	}
-	public void setFechaSolicitado(Date fechaSolicitado) {
-		this.fechaSolicitado = fechaSolicitado;
-	}
-
 	public Date getFechaDevolucion() {
 		return fechaDevolucion;
 	}

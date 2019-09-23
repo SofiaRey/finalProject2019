@@ -1,0 +1,15 @@
+Base de datos 
+
+create database Proyecto;
+use Proyecto;
+
+
+
+Tablas
+
+create table usuario (Ci integer,Id integer , apellido varchar (20) , mail varchar(20) , password varchar(20) , primary key (Ci,Id));
+create table bibliotecario(Ci integer ,Id integer , primary key (Ci,Id) , foreign key (Ci,Id) references usuario (Ci,Id));  
+create table estudiante(Ci integer ,Id integer , orientacion varchar (3) , primary key (Ci,Id) , foreign key (Ci,Id) references usuario (Ci,Id));  
+create table Profesor(Ci integer ,Id integer , orientacion varchar (7) , primary key (Ci,Id) , foreign key (Ci,Id) references usuario (Ci,Id)); 
+create table prestamo (Id integer , devuelto bit , fechaDev date , fechaSol date , IdUsuario integer , IdLibro integer , primary key (IdUsuario,IdLibro) , foreign key (IdUsuario) references usuario (Id), foreign key (IdLibro) references libro (CodLibro));
+create table libro (CodLibro varchar (10) , CodISBN varchar (13) , genero varchar (20) , autor varchar (20) , añoPub integer , descripcion varchar (100) , editorial varchar (20) , URLcover varchar (30), cant integer , disponible bit, primary key (CodLibro,CodISBN));

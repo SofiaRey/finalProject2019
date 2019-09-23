@@ -135,7 +135,6 @@ public class Libro {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-
 	public String getImagUrl() {
 		return imagUrl;
 	}
