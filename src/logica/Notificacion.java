@@ -11,12 +11,11 @@ public class Notificacion {
 	
 	// Constructor
 	
-	public Notificacion(Date fechaSolicitado, Date fechaDevolucion, Prestamo prestamo, Libro libro) {
+	public Notificacion(Date fechaSolicitado, Date fechaDevolucion, Prestamo prestamo) {
 		super();
 		this.fechaSolicitado = fechaSolicitado;
 		this.fechaDevolucion = fechaDevolucion;
 		this.prestamo = prestamo;
-		this.libro = libro;
 	}
 	
 	// Getters and Setters
@@ -33,12 +32,5 @@ public class Notificacion {
 	}
 	public void setPrestamo(Prestamo prestamo) {
 		this.prestamo = prestamo;
-	}
-
-	public Libro getLibro() {
-		return libro;
-	}
-	public void setLibro(Libro libro) {
-		this.libro = libro;
 	}
 }

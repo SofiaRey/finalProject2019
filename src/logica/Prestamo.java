@@ -10,40 +10,51 @@ public class Prestamo {
 	private Date fechaDevolucion;
 	private boolean devuelto;
 	private Usuario usuario;
+	private Libro libro;
 	private ArrayList<Notificacion> notificaciones;
-	
+
 	// Constructor
-	
-	public Prestamo(int id, Date fechaSolicitado, Date fechaDevolucion, boolean devuelto, Usuario usuario, Notificacion notificacion1, Notificacion notificacion2, Notificacion notificacion3) {
+
+	public Prestamo(int id, Date fechaSolicitado, Date fechaDevolucion, boolean devuelto, Usuario usuario,
+			Libro libro) {
 		this.id = id;
 		this.fechaSolicitado = fechaSolicitado;
 		this.fechaDevolucion = fechaDevolucion;
 		this.devuelto = devuelto;
 		this.usuario = usuario;
-		this.notificaciones.add(notificacion1);
-		this.notificaciones.add(notificacion2);
-		this.notificaciones.add(notificacion3);
+		this.libro = libro;
+
+		this.usuario.agregarPrestamo(this);
+
+		for (int i = 0; i < 3; i++) {
+			Notificacion notificacion = new Notificacion(this.fechaSolicitado, fechaDevolucion, this);
+			this.notificaciones.add(notificacion);
+		}
+
 	}
-	
+
 	// Getters and Setters
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public Date getFechaSolicitado() {
 		return fechaSolicitado;
 	}
+
 	public void setFechaSolicitado(Date fechaSolicitado) {
 		this.fechaSolicitado = fechaSolicitado;
 	}
-	
+
 	public Date getFechaDevolucion() {
 		return fechaDevolucion;
 	}
+
 	public void setFechaDevolucion(Date fechaDevolucion) {
 		this.fechaDevolucion = fechaDevolucion;
 	}
@@ -51,7 +62,25 @@ public class Prestamo {
 	public boolean isDevuelto() {
 		return devuelto;
 	}
+
 	public void setDevuelto(boolean devuelto) {
 		this.devuelto = devuelto;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
+	}
+
 }
