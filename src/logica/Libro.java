@@ -6,8 +6,9 @@ import java.util.Date;
 public class Libro {
 
 	private String aniCode;
+	private String titulo;
 	private String autor;
-	private Date fechaPubl;
+	private int anoPub;
 	private int nroEdicion;
 	private String editorial;
 	private String descripcion;
@@ -21,11 +22,12 @@ public class Libro {
 	 
 	 //Constructor
 	
-	public Libro(String aniCode, String autor, Date fechaPubl, int nroEdicion, String editorial, String descripcion,
+	public Libro(String aniCode, String titulo, String autor, int anoPub, int nroEdicion, String editorial, String descripcion,
 			int cantEjemplares, boolean hayEjemplarDisponible, String codigoISBN, String genero, String imagUrl) {
 		this.aniCode = aniCode;
+		this.titulo = titulo;
 		this.autor = autor;
-		this.fechaPubl = fechaPubl;
+		this.anoPub = anoPub;
 		this.nroEdicion = nroEdicion;
 		this.editorial = editorial;
 		this.descripcion = descripcion;
@@ -38,6 +40,10 @@ public class Libro {
 	}
 
 	//Getters and Setters 
+
+	public Libro(int int1, int int2, String string, String string2, String string3, String string4) {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getAniCode() {
 		return aniCode;
@@ -63,14 +69,14 @@ public class Libro {
 
 
 
-	public Date getFechaPubl() {
-		return fechaPubl;
+	public int getAnoPub() {
+		return anoPub;
 	}
 
 
 
-	public void setFechaPubl(Date fechaPubl) {
-		this.fechaPubl = fechaPubl;
+	public void setAnoPub(Date fechaPubl) {
+		this.anoPub = anoPub;
 	}
 
 
@@ -158,5 +164,11 @@ public class Libro {
 	public void setCantEjemplaresDisp(int cantEjemlaresDisp) {
 		this.cantEjemplaresDisp = cantEjemlaresDisp;
 	}
-	
+
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 }

@@ -18,7 +18,6 @@ public class Manejador {
 	private ArrayList<Libro> libros;
 	private ArrayList<Usuario> usuarios;
 	private TipoUsuario tipoUsuario;
-	private static AtomicLong id = new AtomicLong();
 
 	// Constructor
 
@@ -48,32 +47,100 @@ public class Manejador {
 
 	// Actualizar Arrays con datos de la base de datos
 
-	public void actualizarArrays(ArrayList array) {
+	public void actualizarArrays(String arrayName) {
 
 		ResultSet rs;
 
-		try {
-			s = con.createStatement();
-			rs = s.executeQuery(" SELECT * FROM usuario");
+		switch (arrayName) {
+		case "libros":
+			try {
+				libros.clear();
+				s = con.createStatement();
+				rs = s.executeQuery(" SELECT * FROM libro");
 
-			while (rs.next()) {
-				Usuario user = new Usuario(rs.getInt("id"), rs.getInt("CI"), rs.getString("nombre"),
-						rs.getString("apellido"), rs.getString("mail"), rs.getString("password"));
-				array.add(user);
+				while (rs.next()) {
+					Libro libro = new Libro(rs.getString("codeLibro"), rs.getString("titulo"), rs.getString("autor"),
+							rs.getInt("añoPub"), rs.getInt("nroEdicion"), rs.getString("editorial"),
+							rs.getString("descripcion"), rs.getInt("cantEjemplares"),
+							rs.getBoolean("hayEjemplarDisponible"), rs.getString("CodISBN"), rs.getString("genero"),
+							rs.getString("URLcover"));
+					libros.add(libro);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "usuarios":
+			try {
+				usuarios.clear();
+				s = con.createStatement();
+				rs = s.executeQuery("SELECT * FROM usuario");
+
+				while (rs.next()) {
+					Usuario user = new Usuario(rs.getInt("id"), rs.getInt("CI"), rs.getString("nombre"),
+							rs.getString("apellido"), rs.getString("mail"), rs.getString("password"));
+					usuarios.add(user);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+
+		case "prestamos":
+			try {
+				s = con.createStatement();
+				rs = s.executeQuery("SELECT * FROM prestamo");
+				for (int i = 0; i < usuarios.size(); i++) {
+					for (int j = 0; j < usuarios.get(i).getPrestamos().size(); j++) {
+
+						while (rs.next()) {
+
+						}
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+			break;
 		}
 
 	}
 
 	// Generar IDs
 
-	public static String generarID() {
+	public int generarID(String obj) {
+		ResultSet rs;
+		int id = 0;
+		switch (obj) {
+		case "usuario":
+			try {
+				s = con.createStatement();
+				rs = s.executeQuery("SELECT MAX(u.id) FROM usuario u");
+				id = rs.getInt(id);
+				return id++;
 
-		return String.valueOf(id.getAndIncrement());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
 
+		case "prestamo":
+			try {
+				s = con.createStatement();
+				rs = s.executeQuery("SELECT MAX(p.id) FROM prestamo p");
+				id = rs.getInt(id);
+				return id++;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
+		return 0;
 	}
 
 	// Crear un Usuario
@@ -85,7 +152,7 @@ public class Manejador {
 		try {
 			s = con.createStatement();
 			s.executeUpdate("INSERT INTO usuario(CI, id, nombre, apellido, mail, password) values(" + CI + ", " + id
-					+ ", \"" + nombre + "\", \"" + apellido + "\", \"" + mail + "\",  \"" + password + "\");");
+					+ ", '" + nombre + "', '" + apellido + "', '" + mail + "',  '" + password + "');");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -97,7 +164,7 @@ public class Manejador {
 			usuarios.add(new Profesor(id, CI, nombre, apellido, mail, password, orientacion));
 
 			try {
-				s.executeUpdate("INSERT INTO profesor(CI, orientacion) values(" + CI + ", \"" + orientacion + "\");");
+				s.executeUpdate("INSERT INTO profesor(CI, orientacion) values(" + CI + ", '" + orientacion + "');");
 			} catch (Exception e) {
 			}
 			break;
@@ -107,7 +174,7 @@ public class Manejador {
 			usuarios.add(new Estudiante(id, CI, nombre, apellido, mail, password, orientacion, tope));
 
 			try {
-				s.executeUpdate("INSERT INTO estudiante(CI, orientacion) values(" + CI + ", \"" + orientacion + "\");");
+				s.executeUpdate("INSERT INTO estudiante(CI, orientacion) values(" + CI + ", '" + orientacion + "');");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -152,15 +219,15 @@ public class Manejador {
 		// Actualizar tabla usuario
 		try {
 			s = con.createStatement();
-			s.executeUpdate("update usuario(CI, id, nombre, apellido, mail, password) set nombre = \"" + nombre
-					+ "\", apellido = \"" + apellido + "\", mail = \"" + mail + "\", password =  \"" + password
-					+ "\" where Usuario.CI = " + CI + ";");
+			s.executeUpdate("update usuario(CI, id, nombre, apellido, mail, password) set nombre = '" + nombre
+					+ "', apellido = '" + apellido + "', mail = '" + mail + "', password =  '" + password
+					+ "' where Usuario.CI = " + CI + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		// Actualizar array de usuarios con datos nuevos
-		actualizarArrays(usuarios);
+		actualizarArrays("usuarios");
 
 	}
 
@@ -175,9 +242,8 @@ public class Manejador {
 	// Dar de alta prestamos
 
 	public void altaPrestamo(int id, Date fechaSolicitado, Date fechaDevolucion, Usuario usuario, Libro libro) {
+		
 		// Agregar a tabla usuario
-		// Revisar base de datos, hay dos ids para libro pero se conecta con una sola
-		// las dos tablas
 		if (libro.isHayEjemplarDisponible()) {
 			try {
 				s = con.createStatement();
@@ -185,12 +251,24 @@ public class Manejador {
 						+ ", \"" + fechaDevolucion + "\", \"" + fechaSolicitado + "\", \"" + usuario.getCI() + "\",  \""
 						+ libro.getAniCode() + "\");");
 				new Prestamo(id, fechaSolicitado, fechaDevolucion, false, usuario, libro);
+				actualizarArrays("libros");
 				if (libro.getCantEjemplaresDisp() > 0) {
-					libro.setCantEjemplaresDisp(libro.getCantEjemplaresDisp() - 1);
-					if (libro.getCantEjemplaresDisp() < 1) {
-						libro.setHayEjemplarDisponible(false);
-					}
-				}
+				     libro.setCantEjemplaresDisp(libro.getCantEjemplaresDisp() - 1);
+				     
+				     // Subir los cambios a la base de datos
+				     s.executeUpdate("UPDATE Libro SET cantEjemplaresDisp = " + libro.getCantEjemplaresDisp()
+				       + " WHERE libro.CodLibro =" + libro.getAniCode() + ";");
+				     
+				     if (libro.getCantEjemplaresDisp() == 0) {
+				    	 
+				      libro.setHayEjemplarDisponible(false);
+				      
+				      // Subir los cambios a la base de datos
+				      s.executeUpdate("update libro set hayEjemplaresDisponibles = " + libro.isHayEjemplarDisponible()
+				        + " where libro.CodLibro =" + libro.getAniCode() + ";");
+				      
+				     }
+				    }
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -216,7 +294,7 @@ public class Manejador {
 
 	// Dar de alta un libro
 
-	public void altaLibro(String aniCode, String autor, Date fechaPubl, int nroEdicion, String editorial,
+	public void altaLibro(String aniCode, String titulo, String autor, int anoPub, int nroEdicion, String editorial,
 			String descripcion, int cantEjemplares, boolean hayEjemplarDisponible, String codigoISBN, String genero,
 			String imagUrl) {
 
@@ -224,11 +302,11 @@ public class Manejador {
 		try {
 			s = con.createStatement();
 			s.executeUpdate(
-					"INSERT INTO libro(CodLibro, CodISBN, genero, autor, añoPub, descripcion, editorial, URLcover, cant, disponible) values("
-							+ aniCode + ", " + codigoISBN + ", \"" + genero + "\", \"" + autor + "\", " + fechaPubl
-							+ ", \"" + descripcion + "\", \"" + editorial + "\", \"" + imagUrl + "\", " + cantEjemplares
-							+ ", " + hayEjemplarDisponible + ");");
-			libros.add(new Libro(aniCode, autor, fechaPubl, nroEdicion, editorial, descripcion, cantEjemplares,
+					"INSERT INTO libro(titulo, CodLibro, CodISBN, genero, autor, añoPub, descripcion, editorial, URLcover, cant, disponible) values("
+							+ titulo + ", " + aniCode + ", " + codigoISBN + ", '" + genero + "', '" + autor + "', "
+							+ anoPub + ", '" + descripcion + "', '" + editorial + "', '" + imagUrl + "', "
+							+ cantEjemplares + ", " + hayEjemplarDisponible + ");");
+			libros.add(new Libro(aniCode, titulo, autor, anoPub, nroEdicion, editorial, descripcion, cantEjemplares,
 					hayEjemplarDisponible, codigoISBN, genero, imagUrl));
 		} catch (SQLException e) {
 			e.printStackTrace();
