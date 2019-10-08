@@ -31,26 +31,31 @@ create table Profesor(
     foreign key(CI) references usuario(CI)
 ); 
 create table prestamo(
-    id integer AUTO_INCREMENT, 
+    id integer , 
     devuelto bit, 
     fechaDev date, 
     fechaSol date, 
     ciUsuario integer, 
     idLibro varchar(50), 
-    primary key(ciUsuario,idLibro,id), 
+    primary key(ciUsuario,idLibro), 
     foreign key(ciUsuario) references usuario(CI), 
     foreign key(idLibro) references libro(CodLibro)
 );
 create table libro (
     CodLibro varchar(50) UNIQUE, 
     CodISBN varchar(50) UNIQUE, 
+    nroEdicion integer,
     genero varchar(20), 
     autor varchar(50), 
     añoPub smallint, 
-    descripcion varchar(255), 
+    descripcion text, 
     editorial varchar(50), 
     URLcover varchar(50), 
     cant integer, 
     disponible bit,
     primary key(CodLibro,CodISBN)
 );
+
+
+SELECT MAX(u.id) as 'Maximo'
+FROM usuario u
