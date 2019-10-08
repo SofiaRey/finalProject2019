@@ -12,6 +12,7 @@ public class Libro {
 	private String editorial;
 	private String descripcion;
 	private int cantEjemplares;
+	private int cantEjemplaresDisp;
 	private boolean hayEjemplarDisponible;
 	private String codigoISBN;
 	private String genero;
@@ -20,7 +21,8 @@ public class Libro {
 	 
 	 //Constructor
 	
-	 public Libro(String aniCode, String autor, Date fechaPubl, int nroEdicion, String editorial, String descripcion, int cantEjemplares, boolean hayEjemplarDisponible, String codigoISBN, String genero, String imagUrl) {
+	public Libro(String aniCode, String autor, Date fechaPubl, int nroEdicion, String editorial, String descripcion,
+			int cantEjemplares, boolean hayEjemplarDisponible, String codigoISBN, String genero, String imagUrl) {
 		this.aniCode = aniCode;
 		this.autor = autor;
 		this.fechaPubl = fechaPubl;
@@ -28,6 +30,7 @@ public class Libro {
 		this.editorial = editorial;
 		this.descripcion = descripcion;
 		this.cantEjemplares = cantEjemplares;
+		this.cantEjemplaresDisp = cantEjemplares;
 		this.hayEjemplarDisponible = hayEjemplarDisponible;
 		this.codigoISBN = codigoISBN;
 		this.genero = genero;
@@ -148,4 +151,12 @@ public class Libro {
 	public void setPrestamos(ArrayList<Prestamo> prestamos) {
 		this.prestamos = prestamos;
 	}
+
+	public int getCantEjemplaresDisp() {
+		return cantEjemplaresDisp;
+	}
+	public void setCantEjemplaresDisp(int cantEjemlaresDisp) {
+		this.cantEjemplaresDisp = cantEjemlaresDisp;
+	}
+	
 }
