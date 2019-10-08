@@ -44,6 +44,7 @@ create table prestamo(
 create table libro (
     CodLibro varchar(50) UNIQUE, 
     CodISBN varchar(50) UNIQUE, 
+    nroEdicion integer,
     genero varchar(20), 
     autor varchar(50), 
     añoPub smallint, 
