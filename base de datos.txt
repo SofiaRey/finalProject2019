@@ -8,12 +8,12 @@ use Proyecto;
 Tablas
 
 create table usuario(
-    CI integer, 
-    id integer UNIQUE, 
-    nombre varchar(50), 
-    apellido varchar(50), 
-    mail varchar(50) UNIQUE, 
-    password varchar(40), 
+    CI integer  NOT NULL, 
+    id integer UNIQUE  NOT NULL, 
+    nombre varchar(50)  NOT NULL, 
+    apellido varchar(50)  NOT NULL, 
+    mail varchar(50) UNIQUE  NOT NULL, 
+    password varchar(40)  NOT NULL, 
     primary key(CI)
 );
 create table bibliotecario(
@@ -22,38 +22,40 @@ create table bibliotecario(
 );  
 create table estudiante(
     CI integer PRIMARY KEY, 
-    orientacion varchar(3), 
+    orientacion varchar(3)  NOT NULL, 
     foreign key(CI) references usuario(CI)
 );  
 create table Profesor(
     CI integer PRIMARY KEY, 
-    orientacion varchar(7), 
+    orientacion varchar(7)  NOT NULL, 
     foreign key(CI) references usuario(CI)
 ); 
 create table prestamo(
-    id integer , 
-    devuelto bit, 
-    fechaDev date, 
-    fechaSol date, 
-    ciUsuario integer, 
-    idLibro varchar(50), 
+    id integer  NOT NULL, 
+    devuelto bit  NOT NULL, 
+    fechaDev date  NOT NULL, 
+    fechaSol date  NOT NULL, 
+    ciUsuario integer  NOT NULL, 
+    idLibro varchar(50)  NOT NULL, 
     primary key(ciUsuario,idLibro), 
     foreign key(ciUsuario) references usuario(CI), 
     foreign key(idLibro) references libro(CodLibro)
 );
 create table libro (
-    CodLibro varchar(50) UNIQUE, 
-    CodISBN varchar(50) UNIQUE, 
-    nroEdicion integer,
-    genero varchar(20), 
-    autor varchar(50), 
-    añoPub smallint, 
-    descripcion text, 
-    editorial varchar(50), 
-    URLcover varchar(50), 
-    cant integer, 
-    disponible bit,
-    primary key(CodLibro,CodISBN)
+    CodLibro varchar(50) UNIQUE NOT NULL, 
+    CodISBN varchar(50) UNIQUE  NOT NULL, 
+    nroEdicion integer  NOT NULL,
+    genero varchar(20)  NOT NULL, 
+    autor varchar(50)  NOT NULL, 
+    añoPub smallint  NOT NULL, 
+    descripcion text  NOT NULL, 
+    editorial varchar(50)  NOT NULL, 
+    URLcover varchar(50)  NOT NULL, 
+    cant integer  NOT NULL,
+    hayEjemplaresDisponibles bit NOT NULL,
+    cantEjemplaresDisp integer  NOT NULL, 
+    disponible bit  NOT NULL,
+    primary key(CodLibro)
 );
 
 

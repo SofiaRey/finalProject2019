@@ -78,14 +78,32 @@ public class Interfaz extends JFrame {
 		JMenu mnUsuario = new JMenu("Usuario");
 		menuBar.add(mnUsuario);
 		
+		JMenu mnListarUsuariosExistentes = new JMenu("Listar Usuarios Existentes");
+		mnUsuario.add(mnListarUsuariosExistentes);
+		
 		JMenu mnEstudiante = new JMenu("Estudiante");
 		mnUsuario.add(mnEstudiante);
+		
+		JMenu mnModificarDatos = new JMenu("Modificar datos");
+		mnEstudiante.add(mnModificarDatos);
 		
 		JMenu mnProfesor = new JMenu("Profesor");
 		mnUsuario.add(mnProfesor);
 		
+		JMenu mnModificarDatos_1 = new JMenu("Modificar datos");
+		mnProfesor.add(mnModificarDatos_1);
+		
 		JMenu mnPréstamos = new JMenu("Pr\u00E9stamos");
 		menuBar.add(mnPréstamos);
+		
+		JMenu mnDarDeBaja = new JMenu("Dar de baja Pr\u00E9stamos");
+		mnPréstamos.add(mnDarDeBaja);
+		
+		JMenu mnConsultarPrstamos = new JMenu("Consultar Pr\u00E9stamos");
+		mnPréstamos.add(mnConsultarPrstamos);
+		
+		JMenu mnListarPrstamos = new JMenu("Listar Pr\u00E9stamos");
+		mnPréstamos.add(mnListarPrstamos);
 		
 		
 		JPanel pantallaRegistro = new JPanel();
@@ -174,9 +192,61 @@ public class Interfaz extends JFrame {
 		textField_4.setBounds(118, 169, 72, 20);
 		pantallaRegistro.add(textField_4);
 		
+		JButton btnAceptar_1 = new JButton("Aceptar");
+		btnAceptar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		
+		btnAceptar_1.setBounds(172, 217, 89, 23);
+		pantallaRegistro.add(btnAceptar_1);
+		
+		JLabel lblAlta = new JLabel("Dar de alta Usuario");
+		lblAlta.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
+		lblAlta.setBounds(118, 33, 178, 27);
+		pantallaRegistro.add(lblAlta);
+		
+		JPanel Bajarpréstamos = new JPanel();
+		Bajarpréstamos.setBounds(0, 20, 434, 241);
+		contentPane.add(Bajarpréstamos);
+		Bajarpréstamos.setLayout(null);
+		
+		JLabel lblDarDeBaja = new JLabel("Dar de baja Pr\u00E9stamos");
+		lblDarDeBaja.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
+		lblDarDeBaja.setBounds(111, 32, 192, 24);
+		Bajarpréstamos.add(lblDarDeBaja);
+		
+		JLabel lblUsuario_2 = new JLabel("Usuario");
+		lblUsuario_2.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
+		lblUsuario_2.setBounds(60, 97, 55, 14);
+		Bajarpréstamos.add(lblUsuario_2);
+		
+		JLabel lblLibros = new JLabel("Libros");
+		lblLibros.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
+		lblLibros.setBounds(60, 122, 55, 14);
+		Bajarpréstamos.add(lblLibros);
+		
+		JLabel lblPréstamos = new JLabel("Pr\u00E9stamos");
+		lblPréstamos.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
+		lblPréstamos.setBounds(60, 147, 66, 14);
+		Bajarpréstamos.add(lblPréstamos);
+		
+		JButton btnAceptar_3 = new JButton("Aceptar");
+		btnAceptar_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAceptar_3.setBounds(176, 205, 89, 23);
+		Bajarpréstamos.add(btnAceptar_3);
+		
+		JList list = new JList();
+		list.setBounds(247, 86, 137, 77);
+		Bajarpréstamos.add(list);
+		
 	
 		JPanel pantallaIngreso = new JPanel();
-		pantallaIngreso.setBounds(0, 20, 434, 234);
+		pantallaIngreso.setBounds(0, 20, 434, 241);
 		contentPane.add(pantallaIngreso);
 		pantallaIngreso.setLayout(null);
 		
@@ -206,7 +276,7 @@ public class Interfaz extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setForeground(UIManager.getColor("List.selectionBackground"));
 		btnAceptar.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 12));
-		btnAceptar.setBounds(156, 217, 95, 23);
+		btnAceptar.setBounds(157, 211, 95, 23);
 		pantallaIngreso.add(btnAceptar);
 		
 		JLabel lblUsuario = new JLabel("Contrase\u00F1a");
@@ -229,33 +299,8 @@ public class Interfaz extends JFrame {
 		
 		JMenu mnConsultarPrestamos = new JMenu("Consultar pr\u00E9stamos");
 		
-		JPanel Bajarpréstamos = new JPanel();
-		Bajarpréstamos.setBounds(0, 20, 434, 239);
-		contentPane.add(Bajarpréstamos);
-		Bajarpréstamos.setLayout(null);
-		
-		JLabel lblDarDeBaja = new JLabel("Dar de baja Pr\u00E9stamos");
-		lblDarDeBaja.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
-		lblDarDeBaja.setBounds(111, 32, 192, 24);
-		Bajarpréstamos.add(lblDarDeBaja);
-		
-		JLabel lblUsuario_2 = new JLabel("Usuario");
-		lblUsuario_2.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
-		lblUsuario_2.setBounds(60, 97, 55, 14);
-		Bajarpréstamos.add(lblUsuario_2);
-		
-		JLabel lblLibros = new JLabel("Libros");
-		lblLibros.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
-		lblLibros.setBounds(60, 122, 55, 14);
-		Bajarpréstamos.add(lblLibros);
-		
-		JLabel lblPréstamos = new JLabel("Pr\u00E9stamos");
-		lblPréstamos.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
-		lblPréstamos.setBounds(60, 147, 66, 14);
-		Bajarpréstamos.add(lblPréstamos);
-		
 		JPanel Listarlibros = new JPanel();
-		Listarlibros.setBounds(0, 20, 434, 234);
+		Listarlibros.setBounds(0, 20, 434, 241);
 		contentPane.add(Listarlibros);
 		Listarlibros.setLayout(null);
 		
@@ -301,21 +346,6 @@ public class Interfaz extends JFrame {
 		JButton btnAceptar_2 = new JButton("Aceptar");
 		btnAceptar_2.setBounds(165, 217, 89, 23);
 		Listarlibros.add(btnAceptar_2);
-		
-		JButton btnAceptar_1 = new JButton("Aceptar");
-		btnAceptar_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		
-		btnAceptar_1.setBounds(172, 217, 89, 23);
-		pantallaRegistro.add(btnAceptar_1);
-		
-		JLabel lblAlta = new JLabel("Dar de alta Usuario");
-		lblAlta.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
-		lblAlta.setBounds(118, 33, 178, 27);
-		pantallaRegistro.add(lblAlta);
 		
 		
 		textField_6 = new JTextField();
