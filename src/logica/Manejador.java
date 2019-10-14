@@ -7,8 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
-
 import persistencia.Conn;
+
+// Generar las ids desde las propias clases esta correcto?
 
 public class Manejador {
 
@@ -91,14 +92,22 @@ public class Manejador {
 		case "prestamos":
 			try {
 				s = con.createStatement();
-				rs = s.executeQuery("SELECT * FROM prestamo");
+				rs = s.executeQuery(
+						"select lib.*, pres.* from libro lib inner join prestamo pres on pres.idLibro = lib.codAnima");
 				for (int i = 0; i < usuarios.size(); i++) {
-					for (int j = 0; j < usuarios.get(i).getPrestamos().size(); j++) {
+					usuarios.get(i).getPrestamos().clear();
 
-						while (rs.next()) {
-
-						}
+					while (rs.next()) {
+						Libro libro = new Libro(rs.getString("codeLibro"), rs.getString("titulo"),
+								rs.getString("autor"), rs.getInt("añoPub"), rs.getInt("nroEdicion"),
+								rs.getString("editorial"), rs.getString("descripcion"), rs.getInt("cantEjemplares"),
+								rs.getBoolean("hayEjemplarDisponible"), rs.getString("CodISBN"), rs.getString("genero"),
+								rs.getString("URLcover"));
+						Prestamo prestamo = new Prestamo(rs.getInt("id"), rs.getDate("fechaSol"),
+								rs.getDate("fechaDev"), rs.getBoolean("devuelto"), usuarios.get(i), libro);
+						usuarios.get(i).agregarPrestamo(prestamo);
 					}
+
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -145,14 +154,14 @@ public class Manejador {
 
 	// Crear un Usuario
 
-	public void altaUsuario(int id, int CI, String nombre, String apellido, String mail, String password,
+	public void altaUsuario(int CI, String nombre, String apellido, String mail, String password,
 			TipoUsuario tipoUsuario, Orientacion orientacion, int tope) {
-
+		int id = generarID("usuario");
 		// Agregar a tabla usuario
 		try {
 			s = con.createStatement();
-			s.executeUpdate("INSERT INTO usuario(CI, id, nombre, apellido, mail, password) values(" + CI + ", " + id
-					+ ", '" + nombre + "', '" + apellido + "', '" + mail + "',  '" + password + "');");
+			s.executeUpdate("INSERT INTO usuario(CI, id, nombre, apellido, mail, password) values(" + CI + ", '"
+					+ nombre + "', '" + apellido + "', '" + mail + "',  '" + password + "');");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -197,11 +206,11 @@ public class Manejador {
 
 	// Seleccionar un usuario a partir de su id
 
-	public Usuario traerUsuarioPorId(int id) {
+	public Usuario traerUsuarioPorCI(int CI) {
 
 		for (int i = 0; i < usuarios.size(); i++) {
 
-			if (usuarios.get(i).getId() == id) {
+			if (usuarios.get(i).getCI() == CI) {
 
 				return usuarios.get(i);
 
@@ -241,34 +250,51 @@ public class Manejador {
 
 	// Dar de alta prestamos
 
-	public void altaPrestamo(int id, Date fechaSolicitado, Date fechaDevolucion, Usuario usuario, Libro libro) {
-		
+	public void altaPrestamo(Date fechaSolicitado, Date fechaDevolucion, Usuario usuario, Libro libro)
+			throws Exception {
+
+		if (usuario instanceof Estudiante) {
+			// Termina la funcion si el usuario es Estudiante y tiene ya 2 prestamos activos
+			if (((Estudiante) usuario).getTope() == 2) {
+				throw new Exception("Tope alcanzado");
+			}
+		}
+
+		int id = generarID("prestamo");
 		// Agregar a tabla usuario
 		if (libro.isHayEjemplarDisponible()) {
 			try {
 				s = con.createStatement();
-				s.executeUpdate("INSERT INTO prestamo(devuelto, fechaDev, FechaSol, ciUsario, idLibro) values(" + 0
-						+ ", \"" + fechaDevolucion + "\", \"" + fechaSolicitado + "\", \"" + usuario.getCI() + "\",  \""
-						+ libro.getAniCode() + "\");");
+				s.executeUpdate("INSERT INTO prestamo(id, devuelto, fechaDev, FechaSol, ciUsario, idLibro) values(" + id
+						+ ", " + 0 + ", \"" + fechaDevolucion + "\", \"" + fechaSolicitado + "\", \"" + usuario.getCI()
+						+ "\",  \"" + libro.getAniCode() + "\");");
 				new Prestamo(id, fechaSolicitado, fechaDevolucion, false, usuario, libro);
+
+				// Actualizar el tope (cantidad de prestamos activos) + 1
+				if (usuario instanceof Estudiante) {
+					s.executeUpdate("UPDATE Usuario SET tope = " + (((Estudiante) usuario).getTope() + 1)
+							+ " WHERE Usuario.id = " + usuario.getId() + ";");
+					actualizarArrays("usuarios");
+				}
+
 				actualizarArrays("libros");
 				if (libro.getCantEjemplaresDisp() > 0) {
-				     libro.setCantEjemplaresDisp(libro.getCantEjemplaresDisp() - 1);
-				     
-				     // Subir los cambios a la base de datos
-				     s.executeUpdate("UPDATE Libro SET cantEjemplaresDisp = " + libro.getCantEjemplaresDisp()
-				       + " WHERE libro.CodLibro =" + libro.getAniCode() + ";");
-				     
-				     if (libro.getCantEjemplaresDisp() == 0) {
-				    	 
-				      libro.setHayEjemplarDisponible(false);
-				      
-				      // Subir los cambios a la base de datos
-				      s.executeUpdate("update libro set hayEjemplaresDisponibles = " + libro.isHayEjemplarDisponible()
-				        + " where libro.CodLibro =" + libro.getAniCode() + ";");
-				      
-				     }
-				    }
+					libro.setCantEjemplaresDisp(libro.getCantEjemplaresDisp() - 1);
+
+					// Subir los cambios a la base de datos
+					s.executeUpdate("UPDATE Libro SET cantEjemplaresDisp = " + libro.getCantEjemplaresDisp()
+							+ " WHERE libro.CodLibro =" + libro.getAniCode() + ";");
+
+					if (libro.getCantEjemplaresDisp() == 0) {
+
+						libro.setHayEjemplarDisponible(false);
+
+						// Subir los cambios a la base de datos
+						s.executeUpdate("update libro set hayEjemplaresDisponibles = " + libro.isHayEjemplarDisponible()
+								+ " where libro.CodLibro =" + libro.getAniCode() + ";");
+
+					}
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -329,6 +355,14 @@ public class Manejador {
 		try {
 			s = con.createStatement();
 			s.executeUpdate("update prestamo devuelto = 1 where prestamo.id = " + prestamo.getId());
+			// SI el usuario es estudiante se le debe de bajar 1 en el tope (prestamos
+			// activos)
+			if (prestamo.getUsuario() instanceof Estudiante) {
+				s.executeUpdate("UPDATE Usuario SET tope = " + ((((Estudiante) prestamo.getUsuario()).getTope() - 1)
+						+ " WHERE Usuario.id = " + prestamo.getUsuario().getId() + ";"));
+				actualizarArrays("usuarios");
+			}
+			actualizarArrays("prestamos");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
