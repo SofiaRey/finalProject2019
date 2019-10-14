@@ -42,6 +42,7 @@ public class Interfaz extends JFrame {
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
+	private JTextField textField_11;
 
 	/**
 	 * Launch the application.
@@ -97,30 +98,6 @@ public class Interfaz extends JFrame {
 		JMenuItem mntmConsultarPrstamos = new JMenuItem("Consultar Pr\u00E9stamos");
 		mnPréstamos.add(mntmConsultarPrstamos);
 		
-		Panel ConsultarUsuario = new Panel();
-		ConsultarUsuario.setBounds(0, 20, 434, 241);
-		contentPane.add(ConsultarUsuario);
-		ConsultarUsuario.setLayout(null);
-		
-		JLabel lblCi = new JLabel("CI:");
-		lblCi.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblCi.setBounds(63, 73, 21, 14);
-		ConsultarUsuario.add(lblCi);
-		
-		JLabel lblConsultarUsuario = new JLabel("Consultar Usuario");
-		lblConsultarUsuario.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
-		lblConsultarUsuario.setBounds(122, 24, 176, 14);
-		ConsultarUsuario.add(lblConsultarUsuario);
-		
-		textField_10 = new JTextField();
-		textField_10.setBounds(100, 70, 86, 20);
-		ConsultarUsuario.add(textField_10);
-		textField_10.setColumns(10);
-		
-		JButton btnAceptar_4 = new JButton("Aceptar");
-		btnAceptar_4.setBounds(171, 207, 89, 23);
-		ConsultarUsuario.add(btnAceptar_4);
-		
 		
 		
 		JPanel pantallaRegistro = new JPanel();
@@ -167,10 +144,7 @@ public class Interfaz extends JFrame {
 		label_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		label_1.setBounds(237, 71, 81, 14);
 		pantallaRegistro.add(label_1);
-		
-		final ButtonGroup buttonGroup = new ButtonGroup();
 		JRadioButton radioButton = new JRadioButton("");
-		buttonGroup.add(radioButton);
 		
 	
 		radioButton.setBounds(247, 96, 30, 23);
@@ -184,12 +158,10 @@ public class Interfaz extends JFrame {
 		JRadioButton radioButton_1 = new JRadioButton("");
 		radioButton_1.setBounds(247, 121, 30, 23);
 		pantallaRegistro.add(radioButton_1);
-		buttonGroup.add(radioButton_1);
 		
 		JRadioButton radioButton_2 = new JRadioButton("");
 		radioButton_2.setBounds(247, 143, 21, 23);
 		pantallaRegistro.add(radioButton_2);
-		buttonGroup.add(radioButton_2);
 		
 		JLabel lblAdmYTic = new JLabel("ADM Y TIC");
 		lblAdmYTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
@@ -230,6 +202,35 @@ public class Interfaz extends JFrame {
 		lblAlta.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
 		lblAlta.setBounds(118, 33, 178, 27);
 		pantallaRegistro.add(lblAlta);
+		
+	
+		
+		JPanel ConsultarUsuario = new JPanel();
+		ConsultarUsuario.setBounds(0, 20, 434, 241);
+		contentPane.add(ConsultarUsuario);
+		ConsultarUsuario.setLayout(null);
+		
+		JLabel lblConsultarUsuario = new JLabel("Consultar Usuario");
+		lblConsultarUsuario.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
+		lblConsultarUsuario.setBounds(128, 29, 164, 14);
+		ConsultarUsuario.add(lblConsultarUsuario);
+		
+		JLabel lblCi = new JLabel("CI:");
+		lblCi.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblCi.setBounds(71, 77, 23, 14);
+		ConsultarUsuario.add(lblCi);
+		
+		textField_11 = new JTextField();
+		textField_11.setBounds(104, 76, 86, 20);
+		ConsultarUsuario.add(textField_11);
+		textField_11.setColumns(10);
+		
+		JButton btnAceptar_4 = new JButton("Aceptar");
+		btnAceptar_4.setBounds(170, 207, 89, 23);
+		ConsultarUsuario.add(btnAceptar_4);
+		buttonGroup.add(radioButton);
+		buttonGroup.add(radioButton_1);
+		buttonGroup.add(radioButton_2);
 		
 	
 		JPanel pantallaIngreso = new JPanel();
@@ -284,6 +285,8 @@ public class Interfaz extends JFrame {
 		label.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
 		label.setBounds(25, 65, 65, 14);
 		pantallaIngreso.add(label);
+		
+		final ButtonGroup buttonGroup = new ButtonGroup();
 		
 		JPanel ListadeUsuarios = new JPanel();
 		ListadeUsuarios.setBounds(0, 20, 434, 241);
@@ -422,13 +425,12 @@ public class Interfaz extends JFrame {
 		JMenuItem mntmListarLibros = new JMenuItem("Listar libros");
 		mntmListarLibros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultarUsuario.setVisible(false);
-				ListadeUsuarios.setVisible(false);
-				Listarlibros.setVisible(false);
-				pantallaIngreso.setVisible(false);
-				Bajarpréstamos.setVisible(false);
-				pantallaRegistro.setVisible(false);
-				Listarlibros.setVisible(true);
+				    ListadeUsuarios.setVisible(false);
+				    Listarlibros.setVisible(false);
+				    pantallaIngreso.setVisible(false);
+				    Bajarpréstamos.setVisible(false);
+				    pantallaRegistro.setVisible(false);
+				    Listarlibros.setVisible(true);
 			}
 		});
 		
@@ -437,12 +439,11 @@ public class Interfaz extends JFrame {
 		JMenuItem mntmDarDeBaja = new JMenuItem("Dar de baja Pr\u00E9stamos");
 		mntmDarDeBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ConsultarUsuario.setVisible(false);
 				ListadeUsuarios.setVisible(false);
-				Listarlibros.setVisible(false);
-				pantallaIngreso.setVisible(false);
-				Bajarpréstamos.setVisible(false);
-				pantallaRegistro.setVisible(false);
+			    Listarlibros.setVisible(false);
+			    pantallaIngreso.setVisible(false);
+			    Bajarpréstamos.setVisible(false);
+			    pantallaRegistro.setVisible(false);
 			    Bajarpréstamos.setVisible(true);
 			}
 		});
@@ -452,7 +453,6 @@ public class Interfaz extends JFrame {
 		JMenuItem mntmListarUsuariosExistentes = new JMenuItem("Listar Usuarios Existentes");
 		mntmListarUsuariosExistentes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultarUsuario.setVisible(false);
 				ListadeUsuarios.setVisible(false);
 				Listarlibros.setVisible(false);
 				pantallaIngreso.setVisible(false);
@@ -465,7 +465,6 @@ public class Interfaz extends JFrame {
 		JMenuItem mntmAltaUsuario = new JMenuItem("Alta Usuario");
 		mntmAltaUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ConsultarUsuario.setVisible(false);
 				ListadeUsuarios.setVisible(false);
 				Listarlibros.setVisible(false);
 				pantallaIngreso.setVisible(false);
