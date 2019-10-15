@@ -129,7 +129,7 @@ public class Manejador {
 			try {
 				s = con.createStatement();
 				rs = s.executeQuery("SELECT MAX(u.id) FROM usuario u");
-				id = rs.getInt(id);
+				id = rs.getInt("id");
 				return id++;
 
 			} catch (SQLException e) {
@@ -141,7 +141,7 @@ public class Manejador {
 			try {
 				s = con.createStatement();
 				rs = s.executeQuery("SELECT MAX(p.id) FROM prestamo p");
-				id = rs.getInt(id);
+				id = rs.getInt("id");
 				return id++;
 
 			} catch (SQLException e) {
