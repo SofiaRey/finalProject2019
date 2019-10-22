@@ -16,16 +16,21 @@ public class Manejador {
 	Conn connect = new Conn();
 	Connection con = connect.conectarMySQL();
 	Statement s;
-	private ArrayList<Libro> libros;
-	private ArrayList<Usuario> usuarios;
-	private TipoUsuario tipoUsuario;
+	private ArrayList<Libro> libros = new ArrayList<Libro>();
+	private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+	private static final Manejador unicaInstancia = new Manejador();
 
 	// Constructor
 
-	public Manejador(ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
-		super();
-		this.libros = libros;
-		this.usuarios = usuarios;
+	private Manejador() {
+		actualizarArrays("libros");
+		actualizarArrays("usuarios");
+	}
+
+	// Retorna instancia de Manejador
+
+	public static Manejador devolverInstancia() {
+		return unicaInstancia;
 	}
 
 	// Getters and Setters
@@ -57,7 +62,7 @@ public class Manejador {
 			try {
 				libros.clear();
 				s = con.createStatement();
-				rs = s.executeQuery(" SELECT * FROM libro");
+				rs = s.executeQuery("SELECT * FROM libro");
 
 				while (rs.next()) {
 					Libro libro = new Libro(rs.getString("codeLibro"), rs.getString("titulo"), rs.getString("autor"),
@@ -93,12 +98,12 @@ public class Manejador {
 			try {
 				s = con.createStatement();
 				rs = s.executeQuery(
-						"select lib.*, pres.* from libro lib inner join prestamo pres on pres.idLibro = lib.codAnima");
+						"select lib.*, pres.* from libro lib inner join prestamo pres on pres.idLibro = lib.CodLibro");
 				for (int i = 0; i < usuarios.size(); i++) {
 					usuarios.get(i).getPrestamos().clear();
 
 					while (rs.next()) {
-						Libro libro = new Libro(rs.getString("codeLibro"), rs.getString("titulo"),
+						Libro libro = new Libro(rs.getString("CodLibro"), rs.getString("titulo"),
 								rs.getString("autor"), rs.getInt("añoPub"), rs.getInt("nroEdicion"),
 								rs.getString("editorial"), rs.getString("descripcion"), rs.getInt("cantEjemplares"),
 								rs.getBoolean("hayEjemplarDisponible"), rs.getString("CodISBN"), rs.getString("genero"),
@@ -128,9 +133,14 @@ public class Manejador {
 		case "usuario":
 			try {
 				s = con.createStatement();
-				rs = s.executeQuery("SELECT MAX(u.id) FROM usuario u");
-				id = rs.getInt("id");
-				return id++;
+				rs = s.executeQuery("SELECT MAX(u.id) as 'id' FROM usuario u");
+				if (rs.next()) {
+					id = rs.getInt("id");
+					id = id + 1;
+				} else {
+					id = 1;
+				}
+				return id;
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -155,13 +165,13 @@ public class Manejador {
 	// Crear un Usuario
 
 	public void altaUsuario(int CI, String nombre, String apellido, String mail, String password,
-			TipoUsuario tipoUsuario, Orientacion orientacion, int tope) {
+			TipoUsuario tipoUsuario, Orientacion orientacion) {
 		int id = generarID("usuario");
 		// Agregar a tabla usuario
 		try {
 			s = con.createStatement();
-			s.executeUpdate("INSERT INTO usuario(CI, id, nombre, apellido, mail, password) values(" + CI + ", '"
-					+ nombre + "', '" + apellido + "', '" + mail + "',  '" + password + "');");
+			s.executeUpdate("INSERT INTO usuario(CI, id, nombre, apellido, mail, password) values(" + CI + ", " + id
+					+ ", '" + nombre + "', '" + apellido + "', '" + mail + "',  '" + password + "');");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -173,17 +183,17 @@ public class Manejador {
 			usuarios.add(new Profesor(id, CI, nombre, apellido, mail, password, orientacion));
 
 			try {
-				s.executeUpdate("INSERT INTO profesor(CI, orientacion) values(" + CI + ", '" + orientacion + "');");
+				s.executeUpdate("INSERT INTO profesor(id, orientacion) values(" + id + ", '" + orientacion + "');");
 			} catch (Exception e) {
 			}
 			break;
 
 		case ESTUDIANTE:
 
-			usuarios.add(new Estudiante(id, CI, nombre, apellido, mail, password, orientacion, tope));
+			usuarios.add(new Estudiante(id, id, nombre, apellido, mail, password, orientacion, 0));
 
 			try {
-				s.executeUpdate("INSERT INTO estudiante(CI, orientacion) values(" + CI + ", '" + orientacion + "');");
+				s.executeUpdate("INSERT INTO estudiante(id, orientacion) values(" + id + ", '" + orientacion + "');");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -194,7 +204,7 @@ public class Manejador {
 			usuarios.add(new Bibliotecario(id, CI, nombre, apellido, mail, password));
 
 			try {
-				s.executeUpdate("INSERT INTO bibliotecario(CI) values(" + CI + ");");
+				s.executeUpdate("INSERT INTO bibliotecario(id) values(" + id + ");");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

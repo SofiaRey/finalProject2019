@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.AncestorListener;
 import javax.xml.bind.SchemaOutputResolver;
 
+import logica.Manejador;
+import logica.Orientacion;
 import logica.TipoUsuario;
 
 import javax.swing.event.AncestorEvent;
@@ -48,6 +50,8 @@ public class Interfaz extends JFrame {
 	private JTextField textField_11;
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private TipoUsuario ocupacion;
+	private Manejador man = Manejador.devolverInstancia();
+	private JTextField ciTextField;
 
 	/**
 	 * Launch the application.
@@ -107,7 +111,7 @@ public class Interfaz extends JFrame {
 
 		JLabel lblUsuario_1 = new JLabel("Ocupaci\u00F3n");
 		lblUsuario_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblUsuario_1.setBounds(47, 71, 71, 18);
+		lblUsuario_1.setBounds(244, 71, 71, 18);
 		pantallaRegistro.add(lblUsuario_1);
 
 		JLabel lblNombre = new JLabel("Nombre");
@@ -132,44 +136,44 @@ public class Interfaz extends JFrame {
 
 		JLabel label_1 = new JLabel("Orientacion:");
 		label_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		label_1.setBounds(237, 71, 81, 14);
+		label_1.setBounds(244, 96, 81, 14);
 		pantallaRegistro.add(label_1);
 
 		JLabel lblOrientacion = new JLabel("TIC");
 		lblOrientacion.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblOrientacion.setBounds(276, 100, 30, 13);
+		lblOrientacion.setBounds(273, 118, 30, 13);
 		pantallaRegistro.add(lblOrientacion);
 
 		JRadioButton radioButton = new JRadioButton("");
-		radioButton.setBounds(247, 96, 30, 23);
+		radioButton.setBounds(244, 114, 30, 23);
 		pantallaRegistro.add(radioButton);
 
 		JLabel lblAdm = new JLabel("ADM");
 		lblAdm.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblAdm.setBounds(276, 124, 30, 13);
+		lblAdm.setBounds(273, 142, 30, 13);
 		pantallaRegistro.add(lblAdm);
 
 		JRadioButton radioButton_1 = new JRadioButton("");
-		radioButton_1.setBounds(247, 121, 30, 23);
+		radioButton_1.setBounds(244, 139, 30, 23);
 		pantallaRegistro.add(radioButton_1);
 
 		JLabel lblAdmYTic = new JLabel("ADM Y TIC");
 		lblAdmYTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblAdmYTic.setBounds(276, 143, 61, 23);
+		lblAdmYTic.setBounds(273, 161, 61, 23);
 		pantallaRegistro.add(lblAdmYTic);
 
 		JRadioButton radioButton_2 = new JRadioButton("");
-		radioButton_2.setBounds(247, 143, 21, 23);
+		radioButton_2.setBounds(244, 161, 21, 23);
 		pantallaRegistro.add(radioButton_2);
 
 		radioButton.setEnabled(false);
 		radioButton_1.setEnabled(false);
 		radioButton_2.setEnabled(false);
-		
+
 		JComboBox ocupacionComboBox = new JComboBox();
 
 		ocupacionComboBox.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 10));
-		ocupacionComboBox.setBounds(128, 72, 99, 17);
+		ocupacionComboBox.setBounds(325, 72, 99, 17);
 		ocupacionComboBox.addItem(ocupacion.BIBLIOTECARIO);
 		ocupacionComboBox.addItem(ocupacion.ESTUDIANTE);
 		ocupacionComboBox.addItem(ocupacion.PROFESOR);
@@ -218,41 +222,74 @@ public class Interfaz extends JFrame {
 		passwordTextField.setBounds(128, 169, 99, 20);
 		pantallaRegistro.add(passwordTextField);
 
+		JLabel alerta = new JLabel("Complete todos los campos para continuar");
+		alerta.setForeground(Color.RED);
+		alerta.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+		alerta.setBounds(47, 188, 221, 18);
+		pantallaRegistro.add(alerta);
+		alerta.setVisible(false);
+
+		JLabel alert2 = new JLabel("Seleccione uno");
+		alert2.setForeground(Color.RED);
+		alert2.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+		alert2.setBounds(325, 95, 90, 18);
+		pantallaRegistro.add(alert2);
+		alert2.setVisible(false);
+
 		JButton btnAceptar_1 = new JButton("Aceptar");
 		btnAceptar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String ocupacion = ocupacionComboBox.getSelectedItem().toString();
-				String name = nombreTextField.getText();
+				int CI = Integer.parseInt(ciTextField.getText());
+				String ocupacionTxt = ocupacionComboBox.getSelectedItem().toString();
+				String nombre = nombreTextField.getText();
 				String apellido = apellidoTextField.getText();
 				String mail = mailTextField.getText();
 				String password = passwordTextField.getText();
-				String orientacion = "";
+				TipoUsuario ocupacion = null;
+				Orientacion orientacion = null;
 				switch (ocupacionComboBox.getSelectedItem().toString()) {
 				case "BIBLIOTECARIO":
 					orientacion = null;
+					ocupacion = TipoUsuario.BIBLIOTECARIO;
+					alert2.setVisible(false);
 					break;
 				case "ESTUDIANTE":
-					if(radioButton.isSelected()) {
-						orientacion = "TIC";
-					}else if(radioButton_1.isSelected()) {
-						orientacion = "ADM";
-					}else {
-						//Complete los campos para continuar
+					ocupacion = TipoUsuario.ESTUDIANTE;
+					if (radioButton.isSelected()) {
+						orientacion = Orientacion.TIC;
+						alert2.setVisible(false);
+					} else if (radioButton_1.isSelected()) {
+						orientacion = Orientacion.ADM;
+						alert2.setVisible(false);
+					} else {
+						alert2.setVisible(true);
 					}
 					break;
 				case "PROFESOR":
-					if(radioButton.isSelected()) {
-						orientacion = "TIC";
-					}else if(radioButton_1.isSelected()) {
-						orientacion = "ADM";
-					}else if(radioButton_2.isSelected()) {
-						orientacion = "ADMYTIC";
-					}else {
-						//Complete los campos para continuar
+					ocupacion = TipoUsuario.PROFESOR;
+					if (radioButton.isSelected()) {
+						orientacion = Orientacion.TIC;
+						alert2.setVisible(false);
+					} else if (radioButton_1.isSelected()) {
+						orientacion = Orientacion.ADM;
+						alert2.setVisible(false);
+					} else if (radioButton_2.isSelected()) {
+						orientacion = Orientacion.ADMYTIC;
+						alert2.setVisible(false);
+					} else {
+						alert2.setVisible(true);
 					}
 					break;
+
 				}
-				System.out.println(orientacion);
+				if (nombre.equals("") || apellido.equals("") || mail.equals("") || password.equals("") || ciTextField.getText().equals("")) {
+					alerta.setVisible(true);
+				} else {
+					if (!alert2.isVisible()) {
+						alerta.setVisible(false);
+						man.altaUsuario(CI, nombre, apellido, mail, password, ocupacion, orientacion);
+					}
+				}
 			}
 		});
 
@@ -291,6 +328,16 @@ public class Interfaz extends JFrame {
 		buttonGroup.add(radioButton);
 		buttonGroup.add(radioButton_1);
 		buttonGroup.add(radioButton_2);
+		
+		JLabel ciLbl = new JLabel("CI");
+		ciLbl.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		ciLbl.setBounds(47, 72, 53, 14);
+		pantallaRegistro.add(ciLbl);
+		
+		ciTextField = new JTextField();
+		ciTextField.setColumns(10);
+		ciTextField.setBounds(128, 71, 99, 20);
+		pantallaRegistro.add(ciTextField);
 
 		JPanel pantallaIngreso = new JPanel();
 		pantallaIngreso.setBounds(0, 20, 434, 241);
@@ -548,5 +595,4 @@ public class Interfaz extends JFrame {
 		mnUsuario.add(mntmAltaUsuario);
 		mnUsuario.add(mntmListarUsuariosExistentes);
 	}
-
 }
