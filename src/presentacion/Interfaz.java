@@ -1,6 +1,6 @@
 package presentacion;
 
-
+import logica.Orientacion;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -115,25 +115,9 @@ public class Interfaz extends JFrame {
 		Altalibro.setLayout(null);
 		Altalibro.setVisible(false);
 		
-		JLabel lblAltaLibro = new JLabel("Alta libro");
-		lblAltaLibro.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
-		lblAltaLibro.setBounds(174, 23, 78, 14);
-		Altalibro.add(lblAltaLibro);
-		
-		JLabel lblCodISBN = new JLabel("CodISBN:");
-		lblCodISBN.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblCodISBN.setBounds(37, 75, 64, 14);
-		Altalibro.add(lblCodISBN);
-		
-		
-		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(97, 74, 54, 20);
-		Altalibro.add(comboBox_2);
-		
 		JPanel libro = new JPanel();
-		libro.setBounds(0, 0, 284, 192);
-		contentPane.add(libro);
+		libro.setBounds(278, 23, 284, 192);
+		Altalibro.add(libro);
 		libro.setLayout(null);
 		libro.setVisible(false);
 		
@@ -236,6 +220,141 @@ public class Interfaz extends JFrame {
 		textField_21.setBounds(225, 83, 46, 14);
 		libro.add(textField_21);
 		
+		JLabel lblAltaLibro = new JLabel("Alta libro");
+		lblAltaLibro.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
+		lblAltaLibro.setBounds(174, 23, 78, 14);
+		Altalibro.add(lblAltaLibro);
+		
+		JLabel lblCodISBN = new JLabel("CodISBN:");
+		lblCodISBN.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblCodISBN.setBounds(37, 75, 64, 14);
+		Altalibro.add(lblCodISBN);
+		
+		
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(97, 74, 54, 20);
+		Altalibro.add(comboBox_2);
+		
+		JButton btnAceptar_5 = new JButton("Aceptar");
+		btnAceptar_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Altalibro.setVisible(false);
+				libro.setVisible(true);
+			}
+		});
+		btnAceptar_5.setBounds(163, 207, 89, 23);
+		Altalibro.add(btnAceptar_5);
+		
+		
+		
+		JPanel pantallaRegistro = new JPanel();
+		pantallaRegistro.setBounds(0, 0, 434, 261);
+		contentPane.add(pantallaRegistro);
+		pantallaRegistro.setLayout(null);
+		pantallaRegistro.setVisible(true);
+		
+		JLabel lblUsuario_1 = new JLabel("Orientacion");
+		lblUsuario_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblUsuario_1.setBounds(47, 71, 108, 18);
+		pantallaRegistro.add(lblUsuario_1);
+		
+		JComboBox comboBox = new JComboBox(Orientacion.values());
+		comboBox.setBounds(155, 74, 72, 17);
+		pantallaRegistro.add(comboBox);
+		
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblNombre.setBounds(47, 96, 53, 14);
+		pantallaRegistro.add(lblNombre);
+		
+		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblApellido.setBounds(47, 121, 53, 14);
+		pantallaRegistro.add(lblApellido);
+		
+		JLabel lblMail = new JLabel("Mail");
+		lblMail.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblMail.setBounds(47, 146, 53, 14);
+		pantallaRegistro.add(lblMail);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblPassword.setBounds(47, 170, 72, 14);
+		pantallaRegistro.add(lblPassword);
+		
+		JLabel lblOrientacion = new JLabel("Estudiante");
+		lblOrientacion.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+		lblOrientacion.setBounds(276, 100, 61, 13);
+		pantallaRegistro.add(lblOrientacion);
+		
+		JLabel lblTipoDeUsuario = new JLabel("Tipo de usuario");
+		lblTipoDeUsuario.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblTipoDeUsuario.setBounds(237, 71, 100, 18);
+		pantallaRegistro.add(lblTipoDeUsuario);
+		JRadioButton radioButton = new JRadioButton("");
+		
+	
+		radioButton.setBounds(247, 96, 30, 23);
+		pantallaRegistro.add(radioButton);
+		
+		JLabel lblAdm = new JLabel("Profesor");
+		lblAdm.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+		lblAdm.setBounds(276, 124, 61, 13);
+		pantallaRegistro.add(lblAdm);
+		
+		JRadioButton radioButton_1 = new JRadioButton("");
+		radioButton_1.setBounds(247, 121, 30, 23);
+		pantallaRegistro.add(radioButton_1);
+		
+		JRadioButton radioButton_2 = new JRadioButton("");
+		radioButton_2.setBounds(247, 143, 21, 23);
+		pantallaRegistro.add(radioButton_2);
+		buttonGroup.add(radioButton_2);
+		buttonGroup.add(radioButton_1);
+		buttonGroup.add(radioButton);
+		
+		JLabel lblAdmYTic = new JLabel("Biblotecario");
+		lblAdmYTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+		lblAdmYTic.setBounds(276, 143, 89, 23);
+		pantallaRegistro.add(lblAdmYTic);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(155, 95, 72, 20);
+		pantallaRegistro.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(155, 120, 72, 20);
+		pantallaRegistro.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(155, 145, 72, 20);
+		pantallaRegistro.add(textField_3);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(155, 169, 72, 20);
+		pantallaRegistro.add(textField_4);
+		
+		JButton btnAceptar_1 = new JButton("Aceptar");
+		btnAceptar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
+		
+		btnAceptar_1.setBounds(172, 217, 89, 23);
+		pantallaRegistro.add(btnAceptar_1);
+		
+		JLabel lblAlta = new JLabel("Dar de alta Usuario");
+		lblAlta.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
+		lblAlta.setBounds(118, 33, 178, 27);
+		pantallaRegistro.add(lblAlta);
+		
 	
 		
 		JPanel ConsultarUsuario = new JPanel();
@@ -312,114 +431,6 @@ public class Interfaz extends JFrame {
 		JList list_3 = new JList();
 		list_3.setBounds(125, 98, 119, 24);
 		Bajarpréstamos.add(list_3);
-		
-		
-		
-		JPanel pantallaRegistro = new JPanel();
-		pantallaRegistro.setBounds(0, 0, 434, 261);
-		contentPane.add(pantallaRegistro);
-		pantallaRegistro.setLayout(null);
-		pantallaRegistro.setVisible(true);
-		
-		JLabel lblUsuario_1 = new JLabel("Ocupaci\u00F3n");
-		lblUsuario_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblUsuario_1.setBounds(47, 71, 71, 18);
-		pantallaRegistro.add(lblUsuario_1);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(128, 72, 72, 17);
-		pantallaRegistro.add(comboBox);
-		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblNombre.setBounds(47, 96, 53, 14);
-		pantallaRegistro.add(lblNombre);
-		
-		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblApellido.setBounds(47, 121, 53, 14);
-		pantallaRegistro.add(lblApellido);
-		
-		JLabel lblMail = new JLabel("Mail");
-		lblMail.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblMail.setBounds(47, 146, 53, 14);
-		pantallaRegistro.add(lblMail);
-		
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblPassword.setBounds(47, 170, 72, 14);
-		pantallaRegistro.add(lblPassword);
-		
-		JLabel lblOrientacion = new JLabel("TIC");
-		lblOrientacion.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblOrientacion.setBounds(276, 100, 30, 13);
-		pantallaRegistro.add(lblOrientacion);
-		
-		JLabel label_1 = new JLabel("Orientacion:");
-		label_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		label_1.setBounds(237, 71, 81, 14);
-		pantallaRegistro.add(label_1);
-		JRadioButton radioButton = new JRadioButton("");
-		
-	
-		radioButton.setBounds(247, 96, 30, 23);
-		pantallaRegistro.add(radioButton);
-		
-		JLabel lblAdm = new JLabel("ADM");
-		lblAdm.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblAdm.setBounds(276, 124, 30, 13);
-		pantallaRegistro.add(lblAdm);
-		
-		JRadioButton radioButton_1 = new JRadioButton("");
-		radioButton_1.setBounds(247, 121, 30, 23);
-		pantallaRegistro.add(radioButton_1);
-		
-		JRadioButton radioButton_2 = new JRadioButton("");
-		radioButton_2.setBounds(247, 143, 21, 23);
-		pantallaRegistro.add(radioButton_2);
-		buttonGroup.add(radioButton_2);
-		buttonGroup.add(radioButton_1);
-		buttonGroup.add(radioButton);
-		
-		JLabel lblAdmYTic = new JLabel("ADM Y TIC");
-		lblAdmYTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblAdmYTic.setBounds(276, 143, 61, 23);
-		pantallaRegistro.add(lblAdmYTic);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(128, 95, 72, 20);
-		pantallaRegistro.add(textField_1);
-		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(128, 120, 72, 20);
-		pantallaRegistro.add(textField_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(128, 145, 72, 20);
-		pantallaRegistro.add(textField_3);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(128, 169, 72, 20);
-		pantallaRegistro.add(textField_4);
-		
-		JButton btnAceptar_1 = new JButton("Aceptar");
-		btnAceptar_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		
-		btnAceptar_1.setBounds(172, 217, 89, 23);
-		pantallaRegistro.add(btnAceptar_1);
-		
-		JLabel lblAlta = new JLabel("Dar de alta Usuario");
-		lblAlta.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
-		lblAlta.setBounds(118, 33, 178, 27);
-		pantallaRegistro.add(lblAlta);
 
 		
 	
@@ -564,16 +575,6 @@ public class Interfaz extends JFrame {
 		textField_9.setBounds(108, 192, 86, 20);
 		Listarlibros.add(textField_9);
 		
-		JButton btnAceptar_5 = new JButton("Aceptar");
-		btnAceptar_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Altalibro.setVisible(false);
-				libro.setVisible(true);
-			}
-		});
-		btnAceptar_5.setBounds(163, 207, 89, 23);
-		Altalibro.add(btnAceptar_5);
-		
 		JMenu mnConsultarPrestamos = new JMenu("Consultar pr\u00E9stamos");
 	
 		
@@ -669,5 +670,15 @@ public class Interfaz extends JFrame {
 		
 		mnUsuario.add(mntmAltaUsuario);
 		mnUsuario.add(mntmListarUsuariosExistentes);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 20, 434, 241);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblAltaPrstamos = new JLabel("Alta pr\u00E9stamos");
+		lblAltaPrstamos.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
+		lblAltaPrstamos.setBounds(133, 21, 133, 24);
+		panel.add(lblAltaPrstamos);
 	}
 }
