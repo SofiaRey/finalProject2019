@@ -81,13 +81,23 @@ public class Manejador {
 			try {
 				usuarios.clear();
 				s = con.createStatement();
+				Statement sPres = con.createStatement();
 				rs = s.executeQuery("SELECT * FROM usuario");
-
+				ResultSet rsPrestamo;
+				Usuario user = null;
 				while (rs.next()) {
-					Usuario user = new Usuario(rs.getInt("id"), rs.getInt("CI"), rs.getString("nombre"),
+					rsPrestamo = sPres
+							.executeQuery("SELECT * FROM Prestamo WHERE idUsuario = " + rs.getInt("id") + ";");
+					user = new Usuario(rs.getInt("id"), rs.getInt("CI"), rs.getString("nombre"),
 							rs.getString("apellido"), rs.getString("mail"), rs.getString("password"));
 					usuarios.add(user);
+					while (rsPrestamo.next()) {
+						Libro libroPrestamo = traerLibroPorCodigo(rsPrestamo.getString("idLibro"));
+						new Prestamo(rsPrestamo.getInt("id"), rsPrestamo.getDate("fechaSol"),
+								rsPrestamo.getDate("fechaDev"), rsPrestamo.getBoolean("devuelto"), user, libroPrestamo);
+					}
 				}
+				usuarios.add(user);
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -142,14 +152,34 @@ public class Manejador {
 
 	// Comparar cedula con contraseña para permitir ingreso
 
-	public Boolean ingreso(int CI, String contrasena) {
+	public Boolean ingreso(int CI, String contrasena) throws Exception {
 
-		for (int i = 0; i < usuarios.size(); i++) {
-
-			if (usuarios.get(i).getCI() == CI && usuarios.get(i).getPassword().equals(contrasena)) {
-
-				return true;
+		Usuario usuario = traerUsuarioPorCI(CI);
+		boolean isBibliotecario = false;
+		ResultSet rs;
+		try {
+			s = con.createStatement();
+			rs = s.executeQuery("SELECT * FROM bibliotecario WHERE id =" + usuario.getId() + ";");
+			if (rs.next()) {
+				isBibliotecario = true;
 			}
+			
+			if (isBibliotecario) {
+				for (int i = 0; i < usuarios.size(); i++) {
+
+					if (usuarios.get(i).getCI() == CI && usuarios.get(i).getPassword().equals(contrasena)) {
+
+						return true;
+					}
+				}
+			} else {
+
+				throw new Exception();
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return false;
@@ -246,7 +276,7 @@ public class Manejador {
 
 	// Listar usuarios
 
-	public ArrayList listarUsuarios() {
+	public ArrayList<Usuario> listarUsuarios() {
 
 		return usuarios;
 
@@ -381,12 +411,18 @@ public class Manejador {
 
 		try {
 			s = con.createStatement();
-			s.executeUpdate("update prestamo devuelto = 1 where prestamo.id = " + prestamo.getId());
+			s.executeUpdate("update prestamo set devuelto = 1 where prestamo.id = " + prestamo.getId() + ";");
 			// SI el usuario es estudiante se le debe de bajar 1 en el tope (prestamos
 			// activos)
-			if (prestamo.getUsuario() instanceof Estudiante) {
-				s.executeUpdate("UPDATE Usuario SET tope = " + ((((Estudiante) prestamo.getUsuario()).getTope() - 1)
-						+ " WHERE Usuario.id = " + prestamo.getUsuario().getId() + ";"));
+			boolean isStudent = false;
+			ResultSet rs;
+			Statement sUsu = con.createStatement();
+			rs = sUsu.executeQuery("SELECT * FROM estudiante WHERE id =" + prestamo.getUsuario().getId() + ";");
+			if (rs.next()) {
+				isStudent = true;
+				int newTope = rs.getInt("tope") - 1;
+				s.executeUpdate("UPDATE estudiante SET tope = " + newTope + " WHERE id = "
+						+ prestamo.getUsuario().getId() + ";");
 				actualizarArrays("usuarios");
 			}
 			actualizarArrays("prestamos");
@@ -394,5 +430,19 @@ public class Manejador {
 			e.printStackTrace();
 		}
 
+	}
+
+	public Prestamo traerPrestamoPorId(int id) {
+
+		for (int i = 0; i < listarPrestamos().size(); i++) {
+
+			if (listarPrestamos().get(i).getId() == id) {
+
+				return listarPrestamos().get(i);
+
+			}
+		}
+
+		return null;
 	}
 }

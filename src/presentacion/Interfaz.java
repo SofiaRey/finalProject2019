@@ -33,6 +33,7 @@ import org.w3c.dom.Text;
 import logica.Libro;
 import logica.Manejador;
 import logica.Orientacion;
+import logica.Prestamo;
 import logica.TipoUsuario;
 import logica.Usuario;
 
@@ -112,149 +113,272 @@ public class Interfaz extends JFrame {
 		menuBar.setBounds(0, 0, 434, 21);
 		contentPane.add(menuBar);
 		menuBar.setVisible(false);
-		
+
+		// Screen Consultar Prestamo
+
+		JPanel ConsultaPrestamo = new JPanel();
+		ConsultaPrestamo.setBounds(0, 20, 434, 241);
+		contentPane.add(ConsultaPrestamo);
+		ConsultaPrestamo.setLayout(null);
+		ConsultaPrestamo.setVisible(false);
+
+		JLabel lblConsultarPrestamos = new JLabel("Consultar Prestamos");
+		lblConsultarPrestamos.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
+		lblConsultarPrestamos.setBounds(130, 11, 182, 27);
+		ConsultaPrestamo.add(lblConsultarPrestamos);
+
+		JLabel lblTodosLosPrestamos = new JLabel("Todos los Usuarios");
+		lblTodosLosPrestamos.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblTodosLosPrestamos.setBounds(22, 49, 133, 22);
+		ConsultaPrestamo.add(lblTodosLosPrestamos);
+
+		JLabel mostrarFechaSol = new JLabel("...");
+		mostrarFechaSol.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		mostrarFechaSol.setBounds(153, 120, 129, 14);
+		ConsultaPrestamo.add(mostrarFechaSol);
+
+		JLabel mostrarFechaDev = new JLabel("...");
+		mostrarFechaDev.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		mostrarFechaDev.setBounds(170, 146, 129, 14);
+		ConsultaPrestamo.add(mostrarFechaDev);
+
+		JLabel mostrarLibroPres = new JLabel("...");
+		mostrarLibroPres.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		mostrarLibroPres.setBounds(126, 172, 129, 14);
+		ConsultaPrestamo.add(mostrarLibroPres);
+
+		JPanel activo = new JPanel();
+		activo.setBackground(Color.GREEN);
+		activo.setBounds(0, 200, 79, 27);
+		ConsultaPrestamo.add(activo);
+		activo.setVisible(false);
+
+		JLabel lblActivos = new JLabel("Activo");
+		activo.add(lblActivos);
+		lblActivos.setBackground(Color.GREEN);
+		lblActivos.setForeground(Color.BLACK);
+		lblActivos.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+
+		JComboBox prestamosIDs = new JComboBox();
+		prestamosIDs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!(prestamosIDs.getItemCount() == 0)) {
+					Prestamo prestamo = man
+							.traerPrestamoPorId(Integer.parseInt((prestamosIDs.getSelectedItem().toString())));
+					mostrarFechaSol.setText(formatter.format(prestamo.getFechaSolicitado()));
+					mostrarFechaDev.setText(formatter.format(prestamo.getFechaDevolucion()));
+					mostrarLibroPres.setText(prestamo.getLibro().getTitulo());
+					if (prestamo.isDevuelto()) {
+						activo.setVisible(false);
+					} else {
+						activo.setVisible(true);
+					}
+				}
+			}
+		});
+		prestamosIDs.setBounds(300, 84, 124, 22);
+		ConsultaPrestamo.add(prestamosIDs);
+
+		JComboBox usuariosCIsPres = new JComboBox();
+		usuariosCIsPres.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				prestamosIDs.removeAllItems();
+				for (int i = 0; i < man.listarPrestamos().size(); i++) {
+					if (man.listarPrestamos().get(i).getUsuario().getCI() == Integer
+							.parseInt(usuariosCIsPres.getSelectedItem().toString())) {
+						prestamosIDs.addItem(man.listarPrestamos().get(i).getId());
+					}
+				}
+			}
+		});
+		usuariosCIsPres.setBounds(162, 49, 124, 22);
+		ConsultaPrestamo.add(usuariosCIsPres);
+
+		JLabel lblPrestamosDelUsuario = new JLabel("Prestamos del Usuario Seleccionado");
+		lblPrestamosDelUsuario.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 16));
+		lblPrestamosDelUsuario.setBounds(22, 82, 290, 27);
+		ConsultaPrestamo.add(lblPrestamosDelUsuario);
+
+		JLabel lblFechaDeSolicitado_1 = new JLabel("Fecha de Solicitado:");
+		lblFechaDeSolicitado_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblFechaDeSolicitado_1.setBounds(22, 120, 129, 14);
+		ConsultaPrestamo.add(lblFechaDeSolicitado_1);
+
+		JLabel lblFechaDeVencimiento_1 = new JLabel("Fecha de Vencimiento:");
+		lblFechaDeVencimiento_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblFechaDeVencimiento_1.setBounds(22, 146, 150, 14);
+		ConsultaPrestamo.add(lblFechaDeVencimiento_1);
+
+		JLabel lblLibroSolicitado_1 = new JLabel("Libro solicitado:");
+		lblLibroSolicitado_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblLibroSolicitado_1.setBounds(22, 172, 103, 14);
+		ConsultaPrestamo.add(lblLibroSolicitado_1);
+
+		JButton btnDarDeBajaPres = new JButton("Dar de baja");
+		btnDarDeBajaPres.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!(prestamosIDs.getItemCount() == 0)) {
+					Prestamo prestamo = man
+							.traerPrestamoPorId(Integer.parseInt((prestamosIDs.getSelectedItem().toString())));					
+					man.bajaPrestamo(prestamo);
+					try {
+						JOptionPane.showMessageDialog(null, "El préstamo se ha dado de baja :D");
+						activo.setVisible(false);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "No se ha podido dar de baja el prestamo D:", "",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		btnDarDeBajaPres.setBounds(321, 204, 103, 23);
+		ConsultaPrestamo.add(btnDarDeBajaPres);
+
+		// End Screen Consultar Prestamo
+
 		// Screen Listar libros
-		
+
 		JPanel ListarLibros = new JPanel();
 		ListarLibros.setBounds(0, 20, 434, 241);
 		contentPane.add(ListarLibros);
 		ListarLibros.setLayout(null);
 		ListarLibros.setVisible(false);
-		
+
 		JLabel lblListarLibros_1 = new JLabel("Listar Libros");
 		lblListarLibros_1.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
 		lblListarLibros_1.setBounds(159, 11, 107, 27);
 		ListarLibros.add(lblListarLibros_1);
-		
+
 		JLabel lblTodosLosLibros = new JLabel("Todos los Libros");
 		lblTodosLosLibros.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		lblTodosLosLibros.setBounds(22, 52, 133, 22);
 		ListarLibros.add(lblTodosLosLibros);
-		
+
 		JLabel lblDatosDelLibroseleccionado = new JLabel("Datos del Libro Seleccionado");
 		lblDatosDelLibroseleccionado.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 16));
 		lblDatosDelLibroseleccionado.setBounds(22, 78, 255, 27);
 		ListarLibros.add(lblDatosDelLibroseleccionado);
-		
+
 		JLabel lblTtulo = new JLabel("T\u00EDtulo:");
 		lblTtulo.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblTtulo.setBounds(22, 108, 62, 22);
 		ListarLibros.add(lblTtulo);
-		
+
 		JLabel mostrarTitulo = new JLabel("...");
 		mostrarTitulo.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarTitulo.setBounds(64, 108, 156, 22);
 		ListarLibros.add(mostrarTitulo);
-		
+
 		JLabel lblAutor_1 = new JLabel("C\u00F3digo \u00C1NIMA:");
 		lblAutor_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblAutor_1.setBounds(22, 127, 97, 22);
 		ListarLibros.add(lblAutor_1);
-		
+
 		JLabel mostrarCodLibro = new JLabel("...");
 		mostrarCodLibro.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarCodLibro.setBounds(113, 126, 97, 22);
 		ListarLibros.add(mostrarCodLibro);
-		
+
 		JLabel lblCdigoIsbn = new JLabel("C\u00F3digo ISBN:");
 		lblCdigoIsbn.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblCdigoIsbn.setBounds(22, 147, 97, 22);
 		ListarLibros.add(lblCdigoIsbn);
-		
+
 		JLabel mostrarCodISBN = new JLabel("...");
 		mostrarCodISBN.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarCodISBN.setBounds(99, 146, 115, 22);
 		ListarLibros.add(mostrarCodISBN);
-		
+
 		JLabel lblNroDeEdicin = new JLabel("Nro de edici\u00F3n:");
 		lblNroDeEdicin.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblNroDeEdicin.setBounds(22, 167, 97, 22);
 		ListarLibros.add(lblNroDeEdicin);
-		
+
 		JLabel mostrarNroEdicion = new JLabel("...");
 		mostrarNroEdicion.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarNroEdicion.setBounds(113, 167, 56, 22);
 		ListarLibros.add(mostrarNroEdicion);
-		
+
 		JLabel lblAoDePublicacion = new JLabel("A\u00F1o de publicaci\u00F3n:");
 		lblAoDePublicacion.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblAoDePublicacion.setBounds(22, 208, 115, 22);
 		ListarLibros.add(lblAoDePublicacion);
-		
+
 		JLabel mostrarAnoPub = new JLabel("...");
 		mostrarAnoPub.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarAnoPub.setBounds(141, 207, 62, 22);
 		ListarLibros.add(mostrarAnoPub);
-		
+
 		JLabel lblGnero = new JLabel("G\u00E9nero:");
 		lblGnero.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblGnero.setBounds(22, 188, 97, 22);
 		ListarLibros.add(lblGnero);
-		
+
 		JLabel mostrarGenero = new JLabel("...");
 		mostrarGenero.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarGenero.setBounds(74, 187, 115, 22);
 		ListarLibros.add(mostrarGenero);
-		
+
 		JLabel lblDescripcin = new JLabel("Descripci\u00F3n:");
 		lblDescripcin.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblDescripcin.setBounds(224, 108, 115, 22);
 		ListarLibros.add(lblDescripcin);
-		
+
 		JLabel mostrarDescripcion = new JLabel("...");
 		mostrarDescripcion.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarDescripcion.setBounds(295, 107, 133, 22);
 		ListarLibros.add(mostrarDescripcion);
-		
+
 		JLabel mostrarEditorial = new JLabel("...");
 		mostrarEditorial.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarEditorial.setBounds(273, 126, 151, 22);
 		ListarLibros.add(mostrarEditorial);
-		
+
 		JLabel lblEditorial_1 = new JLabel("Editorial:");
 		lblEditorial_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblEditorial_1.setBounds(224, 127, 115, 22);
 		ListarLibros.add(lblEditorial_1);
-		
+
 		JLabel mostrarURLCover = new JLabel("...");
 		mostrarURLCover.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarURLCover.setBounds(301, 146, 123, 22);
 		ListarLibros.add(mostrarURLCover);
-		
+
 		JLabel lblUrlCartula_1 = new JLabel("URL Car\u00E1tula:");
 		lblUrlCartula_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblUrlCartula_1.setBounds(224, 147, 115, 22);
 		ListarLibros.add(lblUrlCartula_1);
-		
+
 		JLabel mostrarCant = new JLabel("...");
 		mostrarCant.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarCant.setBounds(283, 166, 133, 22);
 		ListarLibros.add(mostrarCant);
-		
+
 		JLabel mostrarAutor = new JLabel("...");
 		mostrarAutor.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarAutor.setBounds(268, 207, 156, 22);
 		ListarLibros.add(mostrarAutor);
-		
+
 		JLabel lblCantidad_1 = new JLabel("Cantidad:");
 		lblCantidad_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblCantidad_1.setBounds(224, 169, 115, 22);
 		ListarLibros.add(lblCantidad_1);
-		
+
 		JLabel lblCantidadDisponible = new JLabel("Cantidad disponible:");
 		lblCantidadDisponible.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblCantidadDisponible.setBounds(224, 188, 115, 22);
 		ListarLibros.add(lblCantidadDisponible);
-		
+
 		JLabel mostrarCantDisp = new JLabel("...");
 		mostrarCantDisp.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
 		mostrarCantDisp.setBounds(338, 187, 75, 22);
 		ListarLibros.add(mostrarCantDisp);
-		
+
 		JComboBox librosPorTitulo = new JComboBox();
 		librosPorTitulo.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				if(librosPorTitulo.getItemCount() != 0) {
+				if (librosPorTitulo.getItemCount() != 0) {
 					Libro libro = man.traerLibroPorCodigo(librosPorTitulo.getSelectedItem().toString());
 					mostrarTitulo.setText(libro.getTitulo());
 					mostrarCodLibro.setText(libro.getAniCode());
@@ -269,7 +393,7 @@ public class Interfaz extends JFrame {
 					mostrarCant.setText(Integer.toString(libro.getCantEjemplares()));
 					mostrarCantDisp.setText(Integer.toString(libro.getCantEjemplaresDisp()));
 				}
-				
+
 			}
 		});
 		librosPorTitulo.setBounds(141, 52, 107, 22);
@@ -277,12 +401,12 @@ public class Interfaz extends JFrame {
 		for (int i = 0; i < man.listarLibros().size(); i++) {
 			librosPorTitulo.addItem(man.listarLibros().get(i).getAniCode());
 		}
-		
+
 		JLabel lblAutor_2 = new JLabel("Autor:");
 		lblAutor_2.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
 		lblAutor_2.setBounds(224, 208, 62, 22);
 		ListarLibros.add(lblAutor_2);
-		
+
 		// End Screen Listar libros
 
 		// Screen AltaUsuario
@@ -661,6 +785,7 @@ public class Interfaz extends JFrame {
 		Listar.add(usuariosCIs);
 		for (int i = 0; i < man.listarUsuarios().size(); i++) {
 			usuariosCIs.addItem(man.getUsuarios().get(i).getCI());
+			usuariosCIsPres.addItem(man.getUsuarios().get(i).getCI());
 
 		}
 
@@ -1139,6 +1264,7 @@ public class Interfaz extends JFrame {
 				AltaUsuario.setVisible(false);
 				AltaPrestamo.setVisible(false);
 				Listar.setVisible(true);
+				ConsultaPrestamo.setVisible(false);
 				man.actualizarArrays("usuarios");
 			}
 		});
@@ -1158,11 +1284,22 @@ public class Interfaz extends JFrame {
 				AltaUsuario.setVisible(false);
 				AltaPrestamo.setVisible(true);
 				Listar.setVisible(false);
+				ConsultaPrestamo.setVisible(false);
 			}
 		});
 		mnPréstamos.add(mntmAltaPrestamo);
 
-		JMenuItem mntmConsultarPrstamos = new JMenuItem("Consultar");
+		JMenuItem mntmConsultarPrstamos = new JMenuItem("Consultar/Dar de baja");
+		mntmConsultarPrstamos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AltaLibros.setVisible(false);
+				ListarLibros.setVisible(false);
+				AltaUsuario.setVisible(false);
+				AltaPrestamo.setVisible(false);
+				Listar.setVisible(false);
+				ConsultaPrestamo.setVisible(true);
+			}
+		});
 		mnPréstamos.add(mntmConsultarPrstamos);
 
 		JMenuItem mntmAltaLibros = new JMenuItem("Dar de alta");
@@ -1173,6 +1310,7 @@ public class Interfaz extends JFrame {
 				ListarLibros.setVisible(false);
 				AltaPrestamo.setVisible(false);
 				Listar.setVisible(false);
+				ConsultaPrestamo.setVisible(false);
 			}
 		});
 		mnLibros.add(mntmAltaLibros);
@@ -1185,6 +1323,7 @@ public class Interfaz extends JFrame {
 				AltaPrestamo.setVisible(false);
 				Listar.setVisible(false);
 				ListarLibros.setVisible(true);
+				ConsultaPrestamo.setVisible(false);
 			}
 		});
 
@@ -1196,6 +1335,10 @@ public class Interfaz extends JFrame {
 				AltaLibros.setVisible(false);
 				AltaUsuario.setVisible(false);
 				ListarLibros.setVisible(false);
+				AltaPrestamo.setVisible(false);
+				Listar.setVisible(false);
+				ListarLibros.setVisible(false);
+				ConsultaPrestamo.setVisible(false);
 			}
 		});
 		mnPréstamos.add(mntmDarDeBaja);
