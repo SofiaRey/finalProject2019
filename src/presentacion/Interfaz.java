@@ -114,6 +114,612 @@ public class Interfaz extends JFrame {
 		contentPane.add(menuBar);
 		menuBar.setVisible(false);
 
+		// End Screen AltaPrestamo
+
+		// Screen AltaLibros
+
+		JPanel AltaLibros = new JPanel();
+		AltaLibros.setBounds(0, 20, 434, 241);
+		contentPane.add(AltaLibros);
+		AltaLibros.setLayout(null);
+		AltaLibros.setVisible(false);
+
+		JLabel lblListarLibros = new JLabel("Dar de alta Libro");
+		lblListarLibros.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
+		lblListarLibros.setBounds(152, 23, 149, 14);
+		AltaLibros.add(lblListarLibros);
+
+		JLabel lblTitulo = new JLabel("T\u00EDtulo");
+		lblTitulo.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblTitulo.setBounds(21, 50, 63, 14);
+		AltaLibros.add(lblTitulo);
+
+		textField_titulo = new JTextField();
+		textField_titulo.setBounds(117, 48, 101, 20);
+		AltaLibros.add(textField_titulo);
+		textField_titulo.setColumns(10);
+
+		JLabel lblCodigoAnima = new JLabel("C\u00F3digo \u00C1NIMA");
+		lblCodigoAnima.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 13));
+		lblCodigoAnima.setBounds(21, 78, 117, 14);
+		AltaLibros.add(lblCodigoAnima);
+
+		JLabel lblISBN = new JLabel("C\u00F3digo ISBN");
+		lblISBN.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblISBN.setBounds(21, 109, 86, 14);
+		AltaLibros.add(lblISBN);
+
+		JLabel lblNroEdicion = new JLabel("N\u00FAmero edici\u00F3n");
+		lblNroEdicion.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 12));
+		lblNroEdicion.setBounds(21, 138, 92, 14);
+		AltaLibros.add(lblNroEdicion);
+
+		JLabel lblGenero = new JLabel("G\u00E9nero");
+		lblGenero.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblGenero.setBounds(21, 166, 63, 20);
+		AltaLibros.add(lblGenero);
+
+		textField_codAnima = new JTextField();
+		textField_codAnima.setColumns(10);
+		textField_codAnima.setBounds(117, 77, 101, 20);
+		AltaLibros.add(textField_codAnima);
+
+		textField_CodISBN = new JTextField();
+		textField_CodISBN.setColumns(10);
+		textField_CodISBN.setBounds(117, 106, 101, 20);
+		AltaLibros.add(textField_CodISBN);
+
+		textField_nroEdicion = new JTextField();
+		textField_nroEdicion.setColumns(10);
+		textField_nroEdicion.setBounds(117, 135, 101, 20);
+		AltaLibros.add(textField_nroEdicion);
+
+		textField_Genero = new JTextField();
+		textField_Genero.setColumns(10);
+		textField_Genero.setBounds(117, 165, 101, 20);
+		AltaLibros.add(textField_Genero);
+
+		JLabel lblAutor = new JLabel("Autor");
+		lblAutor.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblAutor.setBounds(238, 50, 63, 14);
+		AltaLibros.add(lblAutor);
+
+		textField_Autor = new JTextField();
+		textField_Autor.setColumns(10);
+		textField_Autor.setBounds(323, 48, 101, 20);
+		AltaLibros.add(textField_Autor);
+
+		JLabel lblAnoPub = new JLabel("A\u00F1o Publicaci\u00F3n");
+		lblAnoPub.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 11));
+		lblAnoPub.setBounds(238, 79, 86, 14);
+		AltaLibros.add(lblAnoPub);
+
+		textField_AnoPub = new JTextField();
+		textField_AnoPub.setColumns(10);
+		textField_AnoPub.setBounds(323, 77, 101, 20);
+		AltaLibros.add(textField_AnoPub);
+
+		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
+		lblDescripcion.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblDescripcion.setBounds(238, 108, 75, 14);
+		AltaLibros.add(lblDescripcion);
+
+		textField_Descripcion = new JTextField();
+		textField_Descripcion.setColumns(10);
+		textField_Descripcion.setBounds(323, 106, 101, 20);
+		AltaLibros.add(textField_Descripcion);
+
+		JLabel lblEditorial = new JLabel("Editorial");
+		lblEditorial.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblEditorial.setBounds(238, 137, 75, 14);
+		AltaLibros.add(lblEditorial);
+
+		textField_Editorial = new JTextField();
+		textField_Editorial.setColumns(10);
+		textField_Editorial.setBounds(323, 135, 101, 20);
+		AltaLibros.add(textField_Editorial);
+
+		JLabel lblUrlCartula = new JLabel("URL Car\u00E1tula");
+		lblUrlCartula.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 12));
+		lblUrlCartula.setBounds(238, 168, 75, 14);
+		AltaLibros.add(lblUrlCartula);
+
+		textField_Caratula = new JTextField();
+		textField_Caratula.setColumns(10);
+		textField_Caratula.setBounds(323, 166, 101, 20);
+		AltaLibros.add(textField_Caratula);
+
+		JLabel lblCantidad = new JLabel("Cantidad");
+		lblCantidad.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblCantidad.setBounds(21, 199, 75, 14);
+		AltaLibros.add(lblCantidad);
+
+		textField_Cant = new JTextField();
+		textField_Cant.setColumns(10);
+		textField_Cant.setBounds(117, 197, 101, 20);
+		AltaLibros.add(textField_Cant);
+
+		JLabel lblAlertaLibros = new JLabel("Complete todos los campos para continuar");
+		lblAlertaLibros.setForeground(Color.RED);
+		lblAlertaLibros.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+		lblAlertaLibros.setBounds(21, 220, 237, 14);
+		AltaLibros.add(lblAlertaLibros);
+		lblAlertaLibros.setVisible(false);
+
+		JButton btnAceptar_2 = new JButton("Aceptar");
+		btnAceptar_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String titulo = textField_titulo.getText();
+					String codAnima = textField_codAnima.getText();
+					String codISBN = textField_CodISBN.getText();
+					int nroEdicion = 0;
+					if (!textField_nroEdicion.getText().equals("")) {
+						nroEdicion = Integer.parseInt(textField_nroEdicion.getText());
+					}
+					String genero = textField_Genero.getText();
+					String autor = textField_Autor.getText();
+					int anoPub = 0;
+					if (!textField_AnoPub.getText().equals("")) {
+						anoPub = Integer.parseInt(textField_AnoPub.getText());
+					}
+					String descripcion = textField_Descripcion.getText();
+					String editorial = textField_Editorial.getText();
+					String urlCover = textField_Caratula.getText();
+					int cant = 0;
+					if (!textField_Cant.getText().equals("")) {
+						cant = Integer.parseInt(textField_Cant.getText());
+					}
+					if (titulo.equals("") || codAnima.equals("") || codISBN.equals("")
+							|| textField_nroEdicion.getText().equals("") || genero.equals("") || autor.equals("")
+							|| textField_AnoPub.getText().equals("") || descripcion.equals("") || editorial.equals("")
+							|| urlCover.equals("") || textField_Cant.getText().equals("")) {
+						lblAlertaLibros.setVisible(true);
+					} else {
+						lblAlertaLibros.setVisible(false);
+						try {
+							man.altaLibro(codAnima, titulo, autor, anoPub, nroEdicion, editorial, descripcion, cant, true,
+									codISBN, genero, urlCover);
+							JOptionPane.showMessageDialog(null, "El libro ha sido creado :D");
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "Message",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Datos ingresados erróneos", "", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnAceptar_2.setBounds(287, 200, 89, 23);
+		AltaLibros.add(btnAceptar_2);
+
+		// End Ingreso
+
+		// Screen ALtaPrestamo
+
+		JPanel AltaPrestamo = new JPanel();
+		AltaPrestamo.setBounds(0, 20, 434, 241);
+		contentPane.add(AltaPrestamo);
+		AltaPrestamo.setLayout(null);
+		AltaPrestamo.setVisible(false);
+
+		JLabel lblDarDeAlta = new JLabel("Dar de alta Prestamo");
+		lblDarDeAlta.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
+		lblDarDeAlta.setBounds(133, 23, 180, 14);
+		AltaPrestamo.add(lblDarDeAlta);
+
+		JLabel lblFechaDeSolicitado = new JLabel("Fecha de solicitado");
+		lblFechaDeSolicitado.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblFechaDeSolicitado.setBounds(20, 115, 135, 14);
+		AltaPrestamo.add(lblFechaDeSolicitado);
+
+		JLabel lblFechaDeVencimiento = new JLabel("Fecha de vencimiento");
+		lblFechaDeVencimiento.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblFechaDeVencimiento.setBounds(20, 140, 150, 14);
+		AltaPrestamo.add(lblFechaDeVencimiento);
+
+		textField_FechaSol = new JTextField();
+		textField_FechaSol.setBounds(180, 114, 133, 20);
+		AltaPrestamo.add(textField_FechaSol);
+		textField_FechaSol.setColumns(10);
+		textField_FechaSol.setText(dtf.format(now));
+
+		textField_FechaVen = new JTextField();
+		textField_FechaVen.setColumns(10);
+		textField_FechaVen.setBounds(180, 140, 133, 20);
+		AltaPrestamo.add(textField_FechaVen);
+
+		JLabel lblAlertaAltaPrestamo = new JLabel("Complete todos los campos para continuar");
+		lblAlertaAltaPrestamo.setForeground(Color.RED);
+		lblAlertaAltaPrestamo.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+		lblAlertaAltaPrestamo.setBounds(20, 171, 240, 14);
+		AltaPrestamo.add(lblAlertaAltaPrestamo);
+		lblAlertaAltaPrestamo.setVisible(false);
+
+		JLabel lblUsuarioSolicitante = new JLabel("C.I del usuario solicitante");
+		lblUsuarioSolicitante.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 13));
+		lblUsuarioSolicitante.setBounds(20, 65, 150, 14);
+		AltaPrestamo.add(lblUsuarioSolicitante);
+
+		JLabel lblLibroSolicitado = new JLabel("Codigo \u00C1NIMA del ibro");
+		lblLibroSolicitado.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
+		lblLibroSolicitado.setBounds(20, 90, 150, 14);
+		AltaPrestamo.add(lblLibroSolicitado);
+
+		textField_LibroPrestamo = new JTextField();
+		textField_LibroPrestamo.setColumns(10);
+		textField_LibroPrestamo.setBounds(180, 89, 133, 20);
+		AltaPrestamo.add(textField_LibroPrestamo);
+
+		textField_CIUsuarioPrestamo = new JTextField();
+		textField_CIUsuarioPrestamo.setColumns(10);
+		textField_CIUsuarioPrestamo.setBounds(180, 63, 133, 20);
+		AltaPrestamo.add(textField_CIUsuarioPrestamo);
+
+		JButton btnAceptarAltaPrestamo = new JButton("Aceptar");
+		btnAceptarAltaPrestamo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int ci = 0;
+					if (!textField_CIUsuarioPrestamo.getText().contentEquals("")) {
+						ci = Integer.parseInt(textField_CIUsuarioPrestamo.getText());
+					}
+					String codLibro = textField_LibroPrestamo.getText();
+					Date fechSol = null;
+					if (!textField_FechaSol.getText().equals("")) {
+						try {
+							fechSol = formatter.parse(textField_FechaSol.getText());
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+					}
+					Date fechVen = null;
+					if (!textField_FechaVen.getText().equals("")) {
+						try {
+							fechVen = formatter.parse(textField_FechaVen.getText());
+						} catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+					}
+					Usuario usuario = man.traerUsuarioPorCI(ci);
+					Libro libro = man.traerLibroPorCodigo(codLibro);
+					if (textField_CIUsuarioPrestamo.getText().contentEquals("")
+							|| textField_LibroPrestamo.getText().contentEquals("")
+							|| textField_FechaSol.getText().equals("") || textField_FechaVen.getText().equals("")) {
+						lblAlertaAltaPrestamo.setVisible(true);
+					} else {
+						lblAlertaAltaPrestamo.setVisible(false);
+						try {
+							if(libro.isHayEjemplarDisponible()) {
+								man.altaPrestamo(fechSol, fechVen, usuario, libro);
+								JOptionPane.showMessageDialog(null, "El prestamo ha sido creado :D");
+							}else {
+								JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "Message",
+										JOptionPane.ERROR_MESSAGE);
+							}
+							
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "Message",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Datos ingresados erróneos", "", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnAceptarAltaPrestamo.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+		btnAceptarAltaPrestamo.setBounds(181, 196, 89, 23);
+		AltaPrestamo.add(btnAceptarAltaPrestamo);
+
+		// End Screen Listar libros
+
+		// Screen AltaUsuario
+
+		JPanel AltaUsuario = new JPanel();
+		AltaUsuario.setBounds(0, 0, 434, 261);
+		contentPane.add(AltaUsuario);
+		AltaUsuario.setLayout(null);
+		AltaUsuario.setVisible(false);
+
+		JLabel lblAlta = new JLabel("Dar de alta Usuario");
+		lblAlta.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
+		lblAlta.setBounds(136, 33, 178, 27);
+		AltaUsuario.add(lblAlta);
+
+		JLabel lblUsuario_1 = new JLabel("Ocupaci\u00F3n");
+		lblUsuario_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblUsuario_1.setBounds(224, 71, 71, 18);
+		AltaUsuario.add(lblUsuario_1);
+
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblNombre.setBounds(27, 96, 53, 14);
+		AltaUsuario.add(lblNombre);
+
+		JLabel lblApellido = new JLabel("Apellido");
+		lblApellido.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblApellido.setBounds(27, 121, 53, 14);
+		AltaUsuario.add(lblApellido);
+
+		JLabel lblMail = new JLabel("Mail");
+		lblMail.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblMail.setBounds(27, 146, 53, 14);
+		AltaUsuario.add(lblMail);
+
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		lblPassword.setBounds(27, 170, 72, 14);
+		AltaUsuario.add(lblPassword);
+
+		passwordField = new JPasswordField();
+		passwordField.setBounds(109, 169, 98, 20);
+		AltaUsuario.add(passwordField);
+		passwordField.setEnabled(true);
+		passwordField.setText("");
+
+		JLabel label_1 = new JLabel("Orientacion:");
+		label_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		label_1.setBounds(224, 96, 81, 14);
+		AltaUsuario.add(label_1);
+
+		JLabel lblTic = new JLabel("TIC");
+		lblTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+		lblTic.setBounds(253, 118, 30, 13);
+		AltaUsuario.add(lblTic);
+
+		JRadioButton radioButton = new JRadioButton("");
+		radioButton.setBounds(224, 114, 30, 23);
+		AltaUsuario.add(radioButton);
+
+		JLabel lblAdm = new JLabel("ADM");
+		lblAdm.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+		lblAdm.setBounds(253, 142, 30, 13);
+		AltaUsuario.add(lblAdm);
+
+		JRadioButton radioButton_1 = new JRadioButton("");
+		radioButton_1.setBounds(224, 139, 30, 23);
+		AltaUsuario.add(radioButton_1);
+
+		JLabel lblAdmYTic = new JLabel("ADM Y TIC");
+		lblAdmYTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+		lblAdmYTic.setBounds(253, 161, 61, 23);
+		AltaUsuario.add(lblAdmYTic);
+
+		JRadioButton radioButton_2 = new JRadioButton("");
+		radioButton_2.setBounds(224, 161, 21, 23);
+		AltaUsuario.add(radioButton_2);
+
+		radioButton.setEnabled(false);
+		radioButton_1.setEnabled(false);
+		radioButton_2.setEnabled(false);
+
+		JComboBox ocupacionComboBox = new JComboBox();
+
+		ocupacionComboBox.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 10));
+		ocupacionComboBox.setBounds(305, 72, 99, 17);
+		ocupacionComboBox.addItem(ocupacion.BIBLIOTECARIO);
+		ocupacionComboBox.addItem(ocupacion.ESTUDIANTE);
+		ocupacionComboBox.addItem(ocupacion.PROFESOR);
+		AltaUsuario.add(ocupacionComboBox);
+
+		ocupacionComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buttonGroup.clearSelection();
+				switch (ocupacionComboBox.getSelectedItem().toString()) {
+				case "BIBLIOTECARIO":
+					radioButton.setEnabled(false);
+					radioButton_1.setEnabled(false);
+					radioButton_2.setEnabled(false);
+					break;
+				case "ESTUDIANTE":
+					radioButton.setEnabled(true);
+					radioButton_1.setEnabled(true);
+					radioButton_2.setEnabled(false);
+					break;
+				case "PROFESOR":
+					radioButton.setEnabled(true);
+					radioButton_1.setEnabled(true);
+					radioButton_2.setEnabled(true);
+					break;
+				}
+			}
+		});
+
+		nombreTextField = new JTextField();
+		nombreTextField.setBounds(108, 95, 99, 20);
+		AltaUsuario.add(nombreTextField);
+		nombreTextField.setColumns(10);
+
+		apellidoTextField = new JTextField();
+		apellidoTextField.setColumns(10);
+		apellidoTextField.setBounds(108, 120, 99, 20);
+		AltaUsuario.add(apellidoTextField);
+
+		mailTextField = new JTextField();
+		mailTextField.setColumns(10);
+		mailTextField.setBounds(108, 145, 99, 20);
+		AltaUsuario.add(mailTextField);
+
+		JLabel alerta = new JLabel("Complete todos los campos para continuar");
+		alerta.setForeground(Color.RED);
+		alerta.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+		alerta.setBounds(27, 188, 221, 18);
+		AltaUsuario.add(alerta);
+		alerta.setVisible(false);
+
+		JLabel alert2 = new JLabel("Seleccione uno");
+		alert2.setForeground(Color.RED);
+		alert2.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
+		alert2.setBounds(305, 95, 90, 18);
+		AltaUsuario.add(alert2);
+		alert2.setVisible(false);
+
+		JButton btnAceptar_1 = new JButton("Aceptar");
+		btnAceptar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int CI = 0;
+					if (!ciTextField.getText().equals("")) {
+						CI = Integer.parseInt(ciTextField.getText());
+					}
+					String ocupacionTxt = ocupacionComboBox.getSelectedItem().toString();
+					String nombre = nombreTextField.getText();
+					String apellido = apellidoTextField.getText();
+					String mail = mailTextField.getText();
+					char contra[] = passwordField.getPassword();
+					String password = new String(contra);
+					TipoUsuario ocupacion = null;
+					Orientacion orientacion = null;
+					switch (ocupacionComboBox.getSelectedItem().toString()) {
+					case "BIBLIOTECARIO":
+						orientacion = null;
+						ocupacion = TipoUsuario.BIBLIOTECARIO;
+						alert2.setVisible(false);
+						break;
+					case "ESTUDIANTE":
+						ocupacion = TipoUsuario.ESTUDIANTE;
+						if (radioButton.isSelected()) {
+							orientacion = Orientacion.TIC;
+							alert2.setVisible(false);
+						} else if (radioButton_1.isSelected()) {
+							orientacion = Orientacion.ADM;
+							alert2.setVisible(false);
+						} else {
+							alert2.setVisible(true);
+						}
+						break;
+					case "PROFESOR":
+						ocupacion = TipoUsuario.PROFESOR;
+						if (radioButton.isSelected()) {
+							orientacion = Orientacion.TIC;
+							alert2.setVisible(false);
+						} else if (radioButton_1.isSelected()) {
+							orientacion = Orientacion.ADM;
+							alert2.setVisible(false);
+						} else if (radioButton_2.isSelected()) {
+							orientacion = Orientacion.ADMYTIC;
+							alert2.setVisible(false);
+						} else {
+							alert2.setVisible(true);
+						}
+						break;
+
+					}
+					if (nombre.equals("") || apellido.equals("") || mail.equals("") || password.equals("")
+							|| ciTextField.getText().equals("")) {
+						alerta.setVisible(true);
+					} else {
+						if (!alert2.isVisible()) {
+							alerta.setVisible(false);
+							try {
+								man.altaUsuario(CI, nombre, apellido, mail, password, ocupacion, orientacion);
+								JOptionPane.showMessageDialog(null, "El usuario ha sido creado :D");
+							} catch (Exception e2) {
+								JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "",
+										JOptionPane.ERROR_MESSAGE);
+							}
+
+						}
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Datos ingresados erróneos", "", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		btnAceptar_1.setBounds(172, 217, 89, 23);
+		AltaUsuario.add(btnAceptar_1);
+
+		JLabel lblModificarUsuario = new JLabel("Modificar Usuario");
+		lblModificarUsuario.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
+		lblModificarUsuario.setBounds(136, 33, 178, 27);
+		AltaUsuario.add(lblModificarUsuario);
+		lblModificarUsuario.setVisible(false);
+
+		JButton AceptarModificarUsuario = new JButton("Aceptar");
+		AceptarModificarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int CI = Integer.parseInt(ciTextField.getText());
+				String ocupacionTxt = ocupacionComboBox.getSelectedItem().toString();
+				String nombre = nombreTextField.getText();
+				String apellido = apellidoTextField.getText();
+				String mail = mailTextField.getText();
+				char contra[] = passwordField.getPassword();
+				String password = new String(contra);
+				TipoUsuario ocupacion = null;
+				Orientacion orientacion = null;
+				switch (ocupacionComboBox.getSelectedItem().toString()) {
+				case "BIBLIOTECARIO":
+					orientacion = null;
+					ocupacion = TipoUsuario.BIBLIOTECARIO;
+					alert2.setVisible(false);
+					break;
+				case "ESTUDIANTE":
+					ocupacion = TipoUsuario.ESTUDIANTE;
+					if (radioButton.isSelected()) {
+						orientacion = Orientacion.TIC;
+						alert2.setVisible(false);
+					} else if (radioButton_1.isSelected()) {
+						orientacion = Orientacion.ADM;
+						alert2.setVisible(false);
+					} else {
+						alert2.setVisible(true);
+					}
+					break;
+				case "PROFESOR":
+					ocupacion = TipoUsuario.PROFESOR;
+					if (radioButton.isSelected()) {
+						orientacion = Orientacion.TIC;
+						alert2.setVisible(false);
+					} else if (radioButton_1.isSelected()) {
+						orientacion = Orientacion.ADM;
+						alert2.setVisible(false);
+					} else if (radioButton_2.isSelected()) {
+						orientacion = Orientacion.ADMYTIC;
+						alert2.setVisible(false);
+					} else {
+						alert2.setVisible(true);
+					}
+					break;
+
+				}
+				if (nombre.equals("") || apellido.equals("") || mail.equals("")) {
+					alerta.setVisible(true);
+				} else {
+					if (!alert2.isVisible()) {
+						alerta.setVisible(false);
+						try {
+							man.modificarUsuario(CI, nombre, apellido, mail, password, ocupacion, orientacion);
+							JOptionPane.showMessageDialog(null, "El usuario ha sido modificado :D");
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "",
+									JOptionPane.ERROR_MESSAGE);
+						}
+
+					}
+				}
+			}
+		});
+		AceptarModificarUsuario.setBounds(172, 217, 89, 23);
+		AltaUsuario.add(AceptarModificarUsuario);
+		AceptarModificarUsuario.setVisible(false);
+		buttonGroup.add(radioButton);
+		buttonGroup.add(radioButton_1);
+		buttonGroup.add(radioButton_2);
+
+		JLabel ciLbl = new JLabel("CI");
+		ciLbl.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
+		ciLbl.setBounds(27, 72, 53, 14);
+		AltaUsuario.add(ciLbl);
+
+		ciTextField = new JTextField();
+		ciTextField.setColumns(10);
+		ciTextField.setBounds(108, 71, 99, 20);
+		AltaUsuario.add(ciTextField);
+
 		// Screen Consultar Prestamo
 
 		JPanel ConsultaPrestamo = new JPanel();
@@ -158,6 +764,10 @@ public class Interfaz extends JFrame {
 		lblActivos.setBackground(Color.GREEN);
 		lblActivos.setForeground(Color.BLACK);
 		lblActivos.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
+		
+		JButton btnDarDeBajaPres = new JButton("Dar de baja");
+		btnDarDeBajaPres.setBounds(321, 204, 103, 23);
+		ConsultaPrestamo.add(btnDarDeBajaPres);
 
 		JComboBox prestamosIDs = new JComboBox();
 		prestamosIDs.addActionListener(new ActionListener() {
@@ -170,8 +780,10 @@ public class Interfaz extends JFrame {
 					mostrarLibroPres.setText(prestamo.getLibro().getTitulo());
 					if (prestamo.isDevuelto()) {
 						activo.setVisible(false);
+						btnDarDeBajaPres.setVisible(false);
 					} else {
 						activo.setVisible(true);
+						btnDarDeBajaPres.setVisible(true);
 					}
 				}
 			}
@@ -214,16 +826,22 @@ public class Interfaz extends JFrame {
 		lblLibroSolicitado_1.setBounds(22, 172, 103, 14);
 		ConsultaPrestamo.add(lblLibroSolicitado_1);
 
-		JButton btnDarDeBajaPres = new JButton("Dar de baja");
 		btnDarDeBajaPres.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!(prestamosIDs.getItemCount() == 0)) {
 					Prestamo prestamo = man
-							.traerPrestamoPorId(Integer.parseInt((prestamosIDs.getSelectedItem().toString())));					
-					man.bajaPrestamo(prestamo);
+							.traerPrestamoPorId(Integer.parseInt((prestamosIDs.getSelectedItem().toString())));
+					try {
+						man.bajaPrestamo(prestamo);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					try {
 						JOptionPane.showMessageDialog(null, "El préstamo se ha dado de baja :D");
 						activo.setVisible(false);
+						btnDarDeBajaPres.setVisible(false);
+						man.actualizarArrays("usuarios");
 					} catch (Exception e2) {
 						JOptionPane.showMessageDialog(null, "No se ha podido dar de baja el prestamo D:", "",
 								JOptionPane.ERROR_MESSAGE);
@@ -231,8 +849,6 @@ public class Interfaz extends JFrame {
 				}
 			}
 		});
-		btnDarDeBajaPres.setBounds(321, 204, 103, 23);
-		ConsultaPrestamo.add(btnDarDeBajaPres);
 
 		// End Screen Consultar Prestamo
 
@@ -407,295 +1023,6 @@ public class Interfaz extends JFrame {
 		lblAutor_2.setBounds(224, 208, 62, 22);
 		ListarLibros.add(lblAutor_2);
 
-		// End Screen Listar libros
-
-		// Screen AltaUsuario
-
-		JPanel AltaUsuario = new JPanel();
-		AltaUsuario.setBounds(0, 0, 434, 261);
-		contentPane.add(AltaUsuario);
-		AltaUsuario.setLayout(null);
-		AltaUsuario.setVisible(false);
-
-		JLabel lblAlta = new JLabel("Dar de alta Usuario");
-		lblAlta.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
-		lblAlta.setBounds(136, 33, 178, 27);
-		AltaUsuario.add(lblAlta);
-
-		JLabel lblUsuario_1 = new JLabel("Ocupaci\u00F3n");
-		lblUsuario_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblUsuario_1.setBounds(224, 71, 71, 18);
-		AltaUsuario.add(lblUsuario_1);
-
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblNombre.setBounds(27, 96, 53, 14);
-		AltaUsuario.add(lblNombre);
-
-		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblApellido.setBounds(27, 121, 53, 14);
-		AltaUsuario.add(lblApellido);
-
-		JLabel lblMail = new JLabel("Mail");
-		lblMail.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblMail.setBounds(27, 146, 53, 14);
-		AltaUsuario.add(lblMail);
-
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		lblPassword.setBounds(27, 170, 72, 14);
-		AltaUsuario.add(lblPassword);
-
-		passwordField = new JPasswordField();
-		passwordField.setBounds(109, 169, 98, 20);
-		AltaUsuario.add(passwordField);
-		passwordField.setEnabled(true);
-		passwordField.setText("");
-
-		JLabel label_1 = new JLabel("Orientacion:");
-		label_1.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		label_1.setBounds(224, 96, 81, 14);
-		AltaUsuario.add(label_1);
-
-		JLabel lblTic = new JLabel("TIC");
-		lblTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblTic.setBounds(253, 118, 30, 13);
-		AltaUsuario.add(lblTic);
-
-		JRadioButton radioButton = new JRadioButton("");
-		radioButton.setBounds(224, 114, 30, 23);
-		AltaUsuario.add(radioButton);
-
-		JLabel lblAdm = new JLabel("ADM");
-		lblAdm.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblAdm.setBounds(253, 142, 30, 13);
-		AltaUsuario.add(lblAdm);
-
-		JRadioButton radioButton_1 = new JRadioButton("");
-		radioButton_1.setBounds(224, 139, 30, 23);
-		AltaUsuario.add(radioButton_1);
-
-		JLabel lblAdmYTic = new JLabel("ADM Y TIC");
-		lblAdmYTic.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 12));
-		lblAdmYTic.setBounds(253, 161, 61, 23);
-		AltaUsuario.add(lblAdmYTic);
-
-		JRadioButton radioButton_2 = new JRadioButton("");
-		radioButton_2.setBounds(224, 161, 21, 23);
-		AltaUsuario.add(radioButton_2);
-
-		radioButton.setEnabled(false);
-		radioButton_1.setEnabled(false);
-		radioButton_2.setEnabled(false);
-
-		JComboBox ocupacionComboBox = new JComboBox();
-
-		ocupacionComboBox.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 10));
-		ocupacionComboBox.setBounds(305, 72, 99, 17);
-		ocupacionComboBox.addItem(ocupacion.BIBLIOTECARIO);
-		ocupacionComboBox.addItem(ocupacion.ESTUDIANTE);
-		ocupacionComboBox.addItem(ocupacion.PROFESOR);
-		AltaUsuario.add(ocupacionComboBox);
-
-		ocupacionComboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				buttonGroup.clearSelection();
-				switch (ocupacionComboBox.getSelectedItem().toString()) {
-				case "BIBLIOTECARIO":
-					radioButton.setEnabled(false);
-					radioButton_1.setEnabled(false);
-					radioButton_2.setEnabled(false);
-					break;
-				case "ESTUDIANTE":
-					radioButton.setEnabled(true);
-					radioButton_1.setEnabled(true);
-					radioButton_2.setEnabled(false);
-					break;
-				case "PROFESOR":
-					radioButton.setEnabled(true);
-					radioButton_1.setEnabled(true);
-					radioButton_2.setEnabled(true);
-					break;
-				}
-			}
-		});
-
-		nombreTextField = new JTextField();
-		nombreTextField.setBounds(108, 95, 99, 20);
-		AltaUsuario.add(nombreTextField);
-		nombreTextField.setColumns(10);
-
-		apellidoTextField = new JTextField();
-		apellidoTextField.setColumns(10);
-		apellidoTextField.setBounds(108, 120, 99, 20);
-		AltaUsuario.add(apellidoTextField);
-
-		mailTextField = new JTextField();
-		mailTextField.setColumns(10);
-		mailTextField.setBounds(108, 145, 99, 20);
-		AltaUsuario.add(mailTextField);
-
-		JLabel alerta = new JLabel("Complete todos los campos para continuar");
-		alerta.setForeground(Color.RED);
-		alerta.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
-		alerta.setBounds(27, 188, 221, 18);
-		AltaUsuario.add(alerta);
-		alerta.setVisible(false);
-
-		JLabel alert2 = new JLabel("Seleccione uno");
-		alert2.setForeground(Color.RED);
-		alert2.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
-		alert2.setBounds(305, 95, 90, 18);
-		AltaUsuario.add(alert2);
-		alert2.setVisible(false);
-
-		JButton btnAceptar_1 = new JButton("Aceptar");
-		btnAceptar_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int CI = 0;
-				if (!ciTextField.getText().equals("")) {
-					CI = Integer.parseInt(ciTextField.getText());
-				}
-				String ocupacionTxt = ocupacionComboBox.getSelectedItem().toString();
-				String nombre = nombreTextField.getText();
-				String apellido = apellidoTextField.getText();
-				String mail = mailTextField.getText();
-				char contra[] = passwordField.getPassword();
-				String password = new String(contra);
-				TipoUsuario ocupacion = null;
-				Orientacion orientacion = null;
-				switch (ocupacionComboBox.getSelectedItem().toString()) {
-				case "BIBLIOTECARIO":
-					orientacion = null;
-					ocupacion = TipoUsuario.BIBLIOTECARIO;
-					alert2.setVisible(false);
-					break;
-				case "ESTUDIANTE":
-					ocupacion = TipoUsuario.ESTUDIANTE;
-					if (radioButton.isSelected()) {
-						orientacion = Orientacion.TIC;
-						alert2.setVisible(false);
-					} else if (radioButton_1.isSelected()) {
-						orientacion = Orientacion.ADM;
-						alert2.setVisible(false);
-					} else {
-						alert2.setVisible(true);
-					}
-					break;
-				case "PROFESOR":
-					ocupacion = TipoUsuario.PROFESOR;
-					if (radioButton.isSelected()) {
-						orientacion = Orientacion.TIC;
-						alert2.setVisible(false);
-					} else if (radioButton_1.isSelected()) {
-						orientacion = Orientacion.ADM;
-						alert2.setVisible(false);
-					} else if (radioButton_2.isSelected()) {
-						orientacion = Orientacion.ADMYTIC;
-						alert2.setVisible(false);
-					} else {
-						alert2.setVisible(true);
-					}
-					break;
-
-				}
-				if (nombre.equals("") || apellido.equals("") || mail.equals("") || password.equals("")
-						|| ciTextField.getText().equals("")) {
-					alerta.setVisible(true);
-				} else {
-					if (!alert2.isVisible()) {
-						alerta.setVisible(false);
-						try {
-							man.altaUsuario(CI, nombre, apellido, mail, password, ocupacion, orientacion);
-							JOptionPane.showMessageDialog(null, "El usuario ha sido creado :D");
-						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "",
-									JOptionPane.ERROR_MESSAGE);
-						}
-
-					}
-				}
-			}
-		});
-
-		btnAceptar_1.setBounds(172, 217, 89, 23);
-		AltaUsuario.add(btnAceptar_1);
-
-		JLabel lblModificarUsuario = new JLabel("Modificar Usuario");
-		lblModificarUsuario.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
-		lblModificarUsuario.setBounds(136, 33, 178, 27);
-		AltaUsuario.add(lblModificarUsuario);
-		lblModificarUsuario.setVisible(false);
-
-		JButton AceptarModificarUsuario = new JButton("Aceptar");
-		AceptarModificarUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int CI = Integer.parseInt(ciTextField.getText());
-				String ocupacionTxt = ocupacionComboBox.getSelectedItem().toString();
-				String nombre = nombreTextField.getText();
-				String apellido = apellidoTextField.getText();
-				String mail = mailTextField.getText();
-				char contra[] = passwordField.getPassword();
-				String password = new String(contra);
-				TipoUsuario ocupacion = null;
-				Orientacion orientacion = null;
-				switch (ocupacionComboBox.getSelectedItem().toString()) {
-				case "BIBLIOTECARIO":
-					orientacion = null;
-					ocupacion = TipoUsuario.BIBLIOTECARIO;
-					alert2.setVisible(false);
-					break;
-				case "ESTUDIANTE":
-					ocupacion = TipoUsuario.ESTUDIANTE;
-					if (radioButton.isSelected()) {
-						orientacion = Orientacion.TIC;
-						alert2.setVisible(false);
-					} else if (radioButton_1.isSelected()) {
-						orientacion = Orientacion.ADM;
-						alert2.setVisible(false);
-					} else {
-						alert2.setVisible(true);
-					}
-					break;
-				case "PROFESOR":
-					ocupacion = TipoUsuario.PROFESOR;
-					if (radioButton.isSelected()) {
-						orientacion = Orientacion.TIC;
-						alert2.setVisible(false);
-					} else if (radioButton_1.isSelected()) {
-						orientacion = Orientacion.ADM;
-						alert2.setVisible(false);
-					} else if (radioButton_2.isSelected()) {
-						orientacion = Orientacion.ADMYTIC;
-						alert2.setVisible(false);
-					} else {
-						alert2.setVisible(true);
-					}
-					break;
-
-				}
-				if (nombre.equals("") || apellido.equals("") || mail.equals("")) {
-					alerta.setVisible(true);
-				} else {
-					if (!alert2.isVisible()) {
-						alerta.setVisible(false);
-						try {
-							man.modificarUsuario(CI, nombre, apellido, mail, password, ocupacion, orientacion);
-							JOptionPane.showMessageDialog(null, "El usuario ha sido modificado :D");
-						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "",
-									JOptionPane.ERROR_MESSAGE);
-						}
-
-					}
-				}
-			}
-		});
-		AceptarModificarUsuario.setBounds(172, 217, 89, 23);
-		AltaUsuario.add(AceptarModificarUsuario);
-		AceptarModificarUsuario.setVisible(false);
-
 		// End Screen AltaUsuario
 
 		// Screen Listar
@@ -834,6 +1161,7 @@ public class Interfaz extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				usuariosCIs.removeAllItems();
 				if (filtroporCI.getText().equals("")) {
 					for (int i = 0; i < man.listarUsuarios().size(); i++) {
 						usuariosCIs.addItem(man.getUsuarios().get(i).getCI());
@@ -917,306 +1245,6 @@ public class Interfaz extends JFrame {
 		passwordField_ContrasenaIngreso = new JPasswordField();
 		passwordField_ContrasenaIngreso.setBounds(115, 107, 213, 20);
 		LogIn.add(passwordField_ContrasenaIngreso);
-
-		// End Ingreso
-
-		// Screen ALtaPrestamo
-
-		JPanel AltaPrestamo = new JPanel();
-		AltaPrestamo.setBounds(0, 20, 434, 241);
-		contentPane.add(AltaPrestamo);
-		AltaPrestamo.setLayout(null);
-		AltaPrestamo.setVisible(false);
-
-		JLabel lblDarDeAlta = new JLabel("Dar de alta Prestamo");
-		lblDarDeAlta.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
-		lblDarDeAlta.setBounds(133, 23, 180, 14);
-		AltaPrestamo.add(lblDarDeAlta);
-
-		JLabel lblFechaDeSolicitado = new JLabel("Fecha de solicitado");
-		lblFechaDeSolicitado.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblFechaDeSolicitado.setBounds(20, 115, 135, 14);
-		AltaPrestamo.add(lblFechaDeSolicitado);
-
-		JLabel lblFechaDeVencimiento = new JLabel("Fecha de vencimiento");
-		lblFechaDeVencimiento.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblFechaDeVencimiento.setBounds(20, 140, 150, 14);
-		AltaPrestamo.add(lblFechaDeVencimiento);
-
-		textField_FechaSol = new JTextField();
-		textField_FechaSol.setBounds(180, 114, 133, 20);
-		AltaPrestamo.add(textField_FechaSol);
-		textField_FechaSol.setColumns(10);
-		textField_FechaSol.setText(dtf.format(now));
-
-		textField_FechaVen = new JTextField();
-		textField_FechaVen.setColumns(10);
-		textField_FechaVen.setBounds(180, 140, 133, 20);
-		AltaPrestamo.add(textField_FechaVen);
-
-		JLabel lblAlertaAltaPrestamo = new JLabel("Complete todos los campos para continuar");
-		lblAlertaAltaPrestamo.setForeground(Color.RED);
-		lblAlertaAltaPrestamo.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
-		lblAlertaAltaPrestamo.setBounds(20, 171, 240, 14);
-		AltaPrestamo.add(lblAlertaAltaPrestamo);
-		lblAlertaAltaPrestamo.setVisible(false);
-
-		JLabel lblUsuarioSolicitante = new JLabel("C.I del usuario solicitante");
-		lblUsuarioSolicitante.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 13));
-		lblUsuarioSolicitante.setBounds(20, 65, 150, 14);
-		AltaPrestamo.add(lblUsuarioSolicitante);
-
-		JLabel lblLibroSolicitado = new JLabel("Codigo \u00C1NIMA del ibro");
-		lblLibroSolicitado.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblLibroSolicitado.setBounds(20, 90, 150, 14);
-		AltaPrestamo.add(lblLibroSolicitado);
-
-		textField_LibroPrestamo = new JTextField();
-		textField_LibroPrestamo.setColumns(10);
-		textField_LibroPrestamo.setBounds(180, 89, 133, 20);
-		AltaPrestamo.add(textField_LibroPrestamo);
-
-		textField_CIUsuarioPrestamo = new JTextField();
-		textField_CIUsuarioPrestamo.setColumns(10);
-		textField_CIUsuarioPrestamo.setBounds(180, 63, 133, 20);
-		AltaPrestamo.add(textField_CIUsuarioPrestamo);
-
-		JButton btnAceptarAltaPrestamo = new JButton("Aceptar");
-		btnAceptarAltaPrestamo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int ci = 0;
-				if (!textField_CIUsuarioPrestamo.getText().contentEquals("")) {
-					ci = Integer.parseInt(textField_CIUsuarioPrestamo.getText());
-				}
-				String codLibro = textField_LibroPrestamo.getText();
-				Date fechSol = null;
-				if (!textField_FechaSol.getText().equals("")) {
-					try {
-						fechSol = formatter.parse(textField_FechaSol.getText());
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-				}
-				Date fechVen = null;
-				if (!textField_FechaVen.getText().equals("")) {
-					try {
-						fechVen = formatter.parse(textField_FechaVen.getText());
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-				}
-				Usuario usuario = man.traerUsuarioPorCI(ci);
-				Libro libro = man.traerLibroPorCodigo(codLibro);
-				if (textField_CIUsuarioPrestamo.getText().contentEquals("")
-						|| textField_LibroPrestamo.getText().contentEquals("")
-						|| textField_FechaSol.getText().equals("") || textField_FechaVen.getText().equals("")) {
-					lblAlertaAltaPrestamo.setVisible(true);
-				} else {
-					lblAlertaAltaPrestamo.setVisible(false);
-					try {
-						man.altaPrestamo(fechSol, fechVen, usuario, libro);
-						JOptionPane.showMessageDialog(null, "El prestamo ha sido creado :D");
-
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "Message",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-		});
-		btnAceptarAltaPrestamo.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
-		btnAceptarAltaPrestamo.setBounds(181, 196, 89, 23);
-		AltaPrestamo.add(btnAceptarAltaPrestamo);
-
-		// End Screen AltaPrestamo
-
-		// Screen AltaLibros
-
-		JPanel AltaLibros = new JPanel();
-		AltaLibros.setBounds(0, 20, 434, 241);
-		contentPane.add(AltaLibros);
-		AltaLibros.setLayout(null);
-		AltaLibros.setVisible(false);
-
-		JLabel lblListarLibros = new JLabel("Dar de alta Libro");
-		lblListarLibros.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
-		lblListarLibros.setBounds(152, 23, 149, 14);
-		AltaLibros.add(lblListarLibros);
-
-		JLabel lblTitulo = new JLabel("T\u00EDtulo");
-		lblTitulo.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblTitulo.setBounds(21, 50, 63, 14);
-		AltaLibros.add(lblTitulo);
-
-		textField_titulo = new JTextField();
-		textField_titulo.setBounds(117, 48, 101, 20);
-		AltaLibros.add(textField_titulo);
-		textField_titulo.setColumns(10);
-
-		JLabel lblCodigoAnima = new JLabel("C\u00F3digo \u00C1NIMA");
-		lblCodigoAnima.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 13));
-		lblCodigoAnima.setBounds(21, 78, 117, 14);
-		AltaLibros.add(lblCodigoAnima);
-
-		JLabel lblISBN = new JLabel("C\u00F3digo ISBN");
-		lblISBN.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblISBN.setBounds(21, 109, 86, 14);
-		AltaLibros.add(lblISBN);
-
-		JLabel lblNroEdicion = new JLabel("N\u00FAmero edici\u00F3n");
-		lblNroEdicion.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 12));
-		lblNroEdicion.setBounds(21, 138, 92, 14);
-		AltaLibros.add(lblNroEdicion);
-
-		JLabel lblGenero = new JLabel("G\u00E9nero");
-		lblGenero.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblGenero.setBounds(21, 166, 63, 20);
-		AltaLibros.add(lblGenero);
-
-		textField_codAnima = new JTextField();
-		textField_codAnima.setColumns(10);
-		textField_codAnima.setBounds(117, 77, 101, 20);
-		AltaLibros.add(textField_codAnima);
-
-		textField_CodISBN = new JTextField();
-		textField_CodISBN.setColumns(10);
-		textField_CodISBN.setBounds(117, 106, 101, 20);
-		AltaLibros.add(textField_CodISBN);
-
-		textField_nroEdicion = new JTextField();
-		textField_nroEdicion.setColumns(10);
-		textField_nroEdicion.setBounds(117, 135, 101, 20);
-		AltaLibros.add(textField_nroEdicion);
-
-		textField_Genero = new JTextField();
-		textField_Genero.setColumns(10);
-		textField_Genero.setBounds(117, 165, 101, 20);
-		AltaLibros.add(textField_Genero);
-
-		JLabel lblAutor = new JLabel("Autor");
-		lblAutor.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblAutor.setBounds(238, 50, 63, 14);
-		AltaLibros.add(lblAutor);
-
-		textField_Autor = new JTextField();
-		textField_Autor.setColumns(10);
-		textField_Autor.setBounds(323, 48, 101, 20);
-		AltaLibros.add(textField_Autor);
-
-		JLabel lblAnoPub = new JLabel("A\u00F1o Publicaci\u00F3n");
-		lblAnoPub.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 11));
-		lblAnoPub.setBounds(238, 79, 86, 14);
-		AltaLibros.add(lblAnoPub);
-
-		textField_AnoPub = new JTextField();
-		textField_AnoPub.setColumns(10);
-		textField_AnoPub.setBounds(323, 77, 101, 20);
-		AltaLibros.add(textField_AnoPub);
-
-		JLabel lblDescripcion = new JLabel("Descripci\u00F3n");
-		lblDescripcion.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblDescripcion.setBounds(238, 108, 75, 14);
-		AltaLibros.add(lblDescripcion);
-
-		textField_Descripcion = new JTextField();
-		textField_Descripcion.setColumns(10);
-		textField_Descripcion.setBounds(323, 106, 101, 20);
-		AltaLibros.add(textField_Descripcion);
-
-		JLabel lblEditorial = new JLabel("Editorial");
-		lblEditorial.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblEditorial.setBounds(238, 137, 75, 14);
-		AltaLibros.add(lblEditorial);
-
-		textField_Editorial = new JTextField();
-		textField_Editorial.setColumns(10);
-		textField_Editorial.setBounds(323, 135, 101, 20);
-		AltaLibros.add(textField_Editorial);
-
-		JLabel lblUrlCartula = new JLabel("URL Car\u00E1tula");
-		lblUrlCartula.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 12));
-		lblUrlCartula.setBounds(238, 168, 75, 14);
-		AltaLibros.add(lblUrlCartula);
-
-		textField_Caratula = new JTextField();
-		textField_Caratula.setColumns(10);
-		textField_Caratula.setBounds(323, 166, 101, 20);
-		AltaLibros.add(textField_Caratula);
-
-		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setFont(new Font("Microsoft JhengHei UI Light", Font.PLAIN, 14));
-		lblCantidad.setBounds(21, 199, 75, 14);
-		AltaLibros.add(lblCantidad);
-
-		textField_Cant = new JTextField();
-		textField_Cant.setColumns(10);
-		textField_Cant.setBounds(117, 197, 101, 20);
-		AltaLibros.add(textField_Cant);
-
-		JLabel lblAlertaLibros = new JLabel("Complete todos los campos para continuar");
-		lblAlertaLibros.setForeground(Color.RED);
-		lblAlertaLibros.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 11));
-		lblAlertaLibros.setBounds(21, 220, 237, 14);
-		AltaLibros.add(lblAlertaLibros);
-		lblAlertaLibros.setVisible(false);
-
-		JButton btnAceptar_2 = new JButton("Aceptar");
-		btnAceptar_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String titulo = textField_titulo.getText();
-				String codAnima = textField_codAnima.getText();
-				String codISBN = textField_CodISBN.getText();
-				int nroEdicion = 0;
-				if (!textField_nroEdicion.getText().equals("")) {
-					nroEdicion = Integer.parseInt(textField_nroEdicion.getText());
-				}
-				String genero = textField_Genero.getText();
-				String autor = textField_Autor.getText();
-				int anoPub = 0;
-				if (!textField_AnoPub.getText().equals("")) {
-					anoPub = Integer.parseInt(textField_AnoPub.getText());
-				}
-				String descripcion = textField_Descripcion.getText();
-				String editorial = textField_Editorial.getText();
-				String urlCover = textField_Caratula.getText();
-				int cant = 0;
-				if (!textField_Cant.getText().equals("")) {
-					cant = Integer.parseInt(textField_Cant.getText());
-				}
-				if (titulo.equals("") || codAnima.equals("") || codISBN.equals("")
-						|| textField_nroEdicion.getText().equals("") || genero.equals("") || autor.equals("")
-						|| textField_AnoPub.getText().equals("") || descripcion.equals("") || editorial.equals("")
-						|| urlCover.equals("") || textField_Cant.getText().equals("")) {
-					lblAlertaLibros.setVisible(true);
-				} else {
-					lblAlertaLibros.setVisible(false);
-					try {
-						man.altaLibro(codAnima, titulo, autor, anoPub, nroEdicion, editorial, descripcion, cant, true,
-								codISBN, genero, urlCover);
-						JOptionPane.showMessageDialog(null, "El libro ha sido creado :D");
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "Los datos ingresados no son correctos D:", "Message",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				}
-
-			}
-		});
-		btnAceptar_2.setBounds(287, 200, 89, 23);
-		AltaLibros.add(btnAceptar_2);
-		buttonGroup.add(radioButton);
-		buttonGroup.add(radioButton_1);
-		buttonGroup.add(radioButton_2);
-
-		JLabel ciLbl = new JLabel("CI");
-		ciLbl.setFont(new Font("Microsoft YaHei UI Light", Font.PLAIN, 14));
-		ciLbl.setBounds(27, 72, 53, 14);
-		AltaUsuario.add(ciLbl);
-
-		ciTextField = new JTextField();
-		ciTextField.setColumns(10);
-		ciTextField.setBounds(108, 71, 99, 20);
-		AltaUsuario.add(ciTextField);
 
 		final ButtonGroup buttonGroup = new ButtonGroup();
 
@@ -1328,20 +1356,6 @@ public class Interfaz extends JFrame {
 		});
 
 		mnLibros.add(mntmListarLibros);
-
-		JMenuItem mntmDarDeBaja = new JMenuItem("Dar de baja");
-		mntmDarDeBaja.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AltaLibros.setVisible(false);
-				AltaUsuario.setVisible(false);
-				ListarLibros.setVisible(false);
-				AltaPrestamo.setVisible(false);
-				Listar.setVisible(false);
-				ListarLibros.setVisible(false);
-				ConsultaPrestamo.setVisible(false);
-			}
-		});
-		mnPréstamos.add(mntmDarDeBaja);
 
 		JMenu mnConsultarPrestamos = new JMenu("Consultar pr\u00E9stamos");
 	}

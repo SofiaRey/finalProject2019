@@ -109,7 +109,7 @@ public class Manejador {
 
 	// Generar IDs
 
-	public int generarID(String obj) {
+	public int generarID(String obj) throws Exception{
 		ResultSet rs;
 		int id = 0;
 		switch (obj) {
@@ -126,9 +126,8 @@ public class Manejador {
 				return id;
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new Exception();
 			}
-			break;
 
 		case "prestamo":
 			try {
@@ -143,9 +142,8 @@ public class Manejador {
 				return id;
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new Exception();
 			}
-			break;
 		}
 		return 0;
 	}
@@ -179,7 +177,7 @@ public class Manejador {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception();
 		}
 
 		return false;
@@ -258,7 +256,7 @@ public class Manejador {
 	// Modificar Usuario
 
 	public void modificarUsuario(int CI, String nombre, String apellido, String mail, String password,
-			TipoUsuario tipoUsuario, Orientacion orientacion) {
+			TipoUsuario tipoUsuario, Orientacion orientacion) throws Exception {
 
 		// Actualizar tabla usuario
 		try {
@@ -266,7 +264,7 @@ public class Manejador {
 			s.executeUpdate("update usuario set nombre = '" + nombre + "', apellido = '" + apellido + "', mail = '"
 					+ mail + "' where Usuario.CI = " + CI + ";");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception();
 		}
 
 		// Actualizar array de usuarios con datos nuevos
@@ -407,7 +405,7 @@ public class Manejador {
 
 	// Dar de baja un prestamo
 
-	public void bajaPrestamo(Prestamo prestamo) {
+	public void bajaPrestamo(Prestamo prestamo) throws Exception {
 
 		try {
 			s = con.createStatement();
@@ -428,6 +426,7 @@ public class Manejador {
 			actualizarArrays("prestamos");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new Exception();
 		}
 
 	}
