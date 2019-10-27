@@ -67,8 +67,9 @@ public class Manejador {
 				while (rs.next()) {
 					Libro libro = new Libro(rs.getString("CodLibro"), rs.getString("titulo"), rs.getString("autor"),
 							rs.getInt("añoPub"), rs.getInt("nroEdicion"), rs.getString("editorial"),
-							rs.getString("descripcion"), rs.getInt("cant"), rs.getBoolean("hayEjemplaresDisp"),
-							rs.getString("CodISBN"), rs.getString("genero"), rs.getString("URLcover"));
+							rs.getString("descripcion"), rs.getInt("cant"), rs.getInt("cantEjemplaresDisp"),
+							rs.getBoolean("hayEjemplaresDisp"), rs.getString("CodISBN"), rs.getString("genero"),
+							rs.getString("URLcover"));
 					libros.add(libro);
 				}
 			} catch (SQLException e) {
@@ -91,33 +92,6 @@ public class Manejador {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			break;
-
-		case "prestamos":
-			try {
-				s = con.createStatement();
-				rs = s.executeQuery(
-						"select lib.*, pres.* from libro lib inner join prestamo pres on pres.idLibro = lib.CodLibro");
-				for (int i = 0; i < usuarios.size(); i++) {
-					usuarios.get(i).getPrestamos().clear();
-
-					while (rs.next()) {
-						Libro libro = new Libro(rs.getString("CodLibro"), rs.getString("titulo"), rs.getString("autor"),
-								rs.getInt("añoPub"), rs.getInt("nroEdicion"), rs.getString("editorial"),
-								rs.getString("descripcion"), rs.getInt("cantEjemplares"),
-								rs.getBoolean("hayEjemplarDisponible"), rs.getString("CodISBN"), rs.getString("genero"),
-								rs.getString("URLcover"));
-						Prestamo prestamo = new Prestamo(rs.getInt("id"), rs.getDate("fechaSol"),
-								rs.getDate("fechaDev"), rs.getBoolean("devuelto"), usuarios.get(i), libro);
-						usuarios.get(i).agregarPrestamo(prestamo);
-					}
-
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
 			break;
 		}
 
@@ -167,26 +141,26 @@ public class Manejador {
 	}
 
 	// Comparar cedula con contraseña para permitir ingreso
-	
+
 	public Boolean ingreso(int CI, String contrasena) {
-		
+
 		for (int i = 0; i < usuarios.size(); i++) {
-			
-			if(usuarios.get(i).getCI() == CI && usuarios.get(i).getPassword().equals(contrasena)) {
-				
+
+			if (usuarios.get(i).getCI() == CI && usuarios.get(i).getPassword().equals(contrasena)) {
+
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	// Crear un Usuario
 
 	public void altaUsuario(int CI, String nombre, String apellido, String mail, String password,
 			TipoUsuario tipoUsuario, Orientacion orientacion) throws Exception {
 		int id = generarID("usuario");
-		int tope = 2;
+		int tope = 0;
 		// Agregar a tabla usuario
 		try {
 			s = con.createStatement();
@@ -259,8 +233,8 @@ public class Manejador {
 		// Actualizar tabla usuario
 		try {
 			s = con.createStatement();
-			s.executeUpdate("update usuario set nombre = '" + nombre
-					+ "', apellido = '" + apellido + "', mail = '" + mail + "' where Usuario.CI = " + CI + ";");
+			s.executeUpdate("update usuario set nombre = '" + nombre + "', apellido = '" + apellido + "', mail = '"
+					+ mail + "' where Usuario.CI = " + CI + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -283,54 +257,57 @@ public class Manejador {
 	public void altaPrestamo(Date fechaSolicitado, Date fechaDevolucion, Usuario usuario, Libro libro)
 			throws Exception {
 
-		if (usuario instanceof Estudiante) {
-			// Termina la funcion si el usuario es Estudiante y tiene ya 2 prestamos activos
-			if (((Estudiante) usuario).getTope() == 2) {
-				throw new Exception("Tope alcanzado");
-			}
+		// Actualizar el tope (cantidad de prestamos activos) + 1
+		boolean isStudent = false;
+		ResultSet rs;
+		s = con.createStatement();
+		rs = s.executeQuery("SELECT * FROM estudiante WHERE id =" + usuario.getId() + ";");
+		if (rs.next()) {
+			isStudent = true;
+		}
+		// Termina la funcion si el usuario es Estudiante y tiene ya 2 prestamos activos
+		if (isStudent && rs.getInt("tope") == 2) {
+			throw new Exception("Tope alcanzado");
 		}
 
 		int id = generarID("prestamo");
 		// Agregar a tabla usuario
 		if (libro.isHayEjemplarDisponible()) {
+
 			try {
 				s = con.createStatement();
-				
-			    java.sql.Date sqlDateSol = new java.sql.Date(fechaSolicitado.getTime());
-			    java.sql.Date sqlDateDev = new java.sql.Date(fechaDevolucion.getTime());
-				
-				s.executeUpdate("INSERT INTO prestamo(id, devuelto, fechaDev, FechaSol, idUsuario, idLibro) values(" + id
-						+ ", " + 0 + ", \"" + sqlDateDev + "\", \"" + sqlDateSol + "\", \"" + usuario.getId()
+				java.sql.Date sqlDateSol = new java.sql.Date(fechaSolicitado.getTime());
+				java.sql.Date sqlDateDev = new java.sql.Date(fechaDevolucion.getTime());
+
+				s.executeUpdate("INSERT INTO prestamo(id, devuelto, fechaDev, FechaSol, idUsuario, idLibro) values("
+						+ id + ", " + 0 + ", \"" + sqlDateDev + "\", \"" + sqlDateSol + "\", \"" + usuario.getId()
 						+ "\",  \"" + libro.getAniCode() + "\");");
 				new Prestamo(id, fechaSolicitado, fechaDevolucion, false, usuario, libro);
 
-				// Actualizar el tope (cantidad de prestamos activos) + 1
-				if (usuario instanceof Estudiante) {
-					s.executeUpdate("UPDATE Usuario SET tope = " + (((Estudiante) usuario).getTope() + 1)
-							+ " WHERE Usuario.id = " + usuario.getId() + ";");
-					actualizarArrays("usuarios");
-				}
-
-				actualizarArrays("libros");
 				if (libro.getCantEjemplaresDisp() > 0) {
+					if (isStudent) {
+						int newTope = rs.getInt("tope") + 1;
+						s.executeUpdate("UPDATE estudiante SET tope = " + newTope + ";");
+					}
 					libro.setCantEjemplaresDisp(libro.getCantEjemplaresDisp() - 1);
 
 					// Subir los cambios a la base de datos
 					s.executeUpdate("UPDATE Libro SET cantEjemplaresDisp = " + libro.getCantEjemplaresDisp()
-							+ " WHERE libro.CodLibro =" + libro.getAniCode() + ";");
+							+ " WHERE CodLibro ='" + libro.getAniCode() + "';");
 
 					if (libro.getCantEjemplaresDisp() == 0) {
 
 						libro.setHayEjemplarDisponible(false);
 
 						// Subir los cambios a la base de datos
-						s.executeUpdate("update libro set hayEjemplaresDisponibles = " + libro.isHayEjemplarDisponible()
-								+ " where libro.CodLibro =" + libro.getAniCode() + ";");
-
+						s.executeUpdate("update libro set hayEjemplaresDisp = " + libro.isHayEjemplarDisponible()
+								+ " where CodLibro ='" + libro.getAniCode() + "';");
 					}
+					actualizarArrays("libros");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw new Exception();
 			}
 		}
 	}
@@ -368,7 +345,7 @@ public class Manejador {
 							+ imagUrl + "', " + cantEjemplares + ", " + hayEjemplarDisponible + ", " + cantEjemplares
 							+ ");");
 			libros.add(new Libro(aniCode, titulo, autor, anoPub, nroEdicion, editorial, descripcion, cantEjemplares,
-					hayEjemplarDisponible, codigoISBN, genero, imagUrl));
+					cantEjemplares, hayEjemplarDisponible, codigoISBN, genero, imagUrl));
 		} catch (SQLException e) {
 			throw new Exception();
 		}
@@ -377,7 +354,7 @@ public class Manejador {
 
 	// Listar libros
 
-	public ArrayList listarLibros() {
+	public ArrayList<Libro> listarLibros() {
 
 		return libros;
 
@@ -386,13 +363,13 @@ public class Manejador {
 	// Traer libro por su codigo Anima
 
 	public Libro traerLibroPorCodigo(String aniCode) {
-		
+
 		for (int i = 0; i < libros.size(); i++) {
-			
+
 			if (libros.get(i).getAniCode().equals(aniCode)) {
-				
+
 				return libros.get(i);
-				
+
 			}
 		}
 		return null;

@@ -11,7 +11,7 @@ public class Prestamo {
 	private boolean devuelto;
 	private Usuario usuario;
 	private Libro libro;
-	private ArrayList<Notificacion> notificaciones;
+	private ArrayList<Notificacion> notificaciones = new ArrayList<Notificacion>();
 
 	// Constructor
 

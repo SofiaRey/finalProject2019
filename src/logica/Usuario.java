@@ -10,7 +10,7 @@ public class Usuario {
 	private String apellido;
 	private String mail;
 	private String password;
-	private ArrayList<Prestamo> prestamos;
+	private ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 
 	// Constructor
 
