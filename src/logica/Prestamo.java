@@ -24,7 +24,8 @@ public class Prestamo {
 		this.usuario = usuario;
 		this.libro = libro;
 
-		this.usuario.agregarPrestamo(this);
+		usuario.agregarPrestamo(this);
+		libro.agregarPrestamo(this);
 
 		for (int i = 0; i < 3; i++) {
 			Notificacion notificacion = new Notificacion(this.fechaSolicitado, fechaDevolucion, this);

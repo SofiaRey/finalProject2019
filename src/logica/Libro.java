@@ -171,4 +171,8 @@ public class Libro {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	
+	public void agregarPrestamo(Prestamo prestamo) {
+		this.prestamos.add(prestamo);
+	}
 }

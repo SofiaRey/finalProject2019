@@ -65,11 +65,10 @@ public class Manejador {
 				rs = s.executeQuery("SELECT * FROM libro");
 
 				while (rs.next()) {
-					Libro libro = new Libro(rs.getString("codeLibro"), rs.getString("titulo"), rs.getString("autor"),
+					Libro libro = new Libro(rs.getString("CodLibro"), rs.getString("titulo"), rs.getString("autor"),
 							rs.getInt("añoPub"), rs.getInt("nroEdicion"), rs.getString("editorial"),
-							rs.getString("descripcion"), rs.getInt("cantEjemplares"),
-							rs.getBoolean("hayEjemplarDisponible"), rs.getString("CodISBN"), rs.getString("genero"),
-							rs.getString("URLcover"));
+							rs.getString("descripcion"), rs.getInt("cant"), rs.getBoolean("hayEjemplaresDisp"),
+							rs.getString("CodISBN"), rs.getString("genero"), rs.getString("URLcover"));
 					libros.add(libro);
 				}
 			} catch (SQLException e) {
@@ -103,9 +102,9 @@ public class Manejador {
 					usuarios.get(i).getPrestamos().clear();
 
 					while (rs.next()) {
-						Libro libro = new Libro(rs.getString("CodLibro"), rs.getString("titulo"),
-								rs.getString("autor"), rs.getInt("añoPub"), rs.getInt("nroEdicion"),
-								rs.getString("editorial"), rs.getString("descripcion"), rs.getInt("cantEjemplares"),
+						Libro libro = new Libro(rs.getString("CodLibro"), rs.getString("titulo"), rs.getString("autor"),
+								rs.getInt("añoPub"), rs.getInt("nroEdicion"), rs.getString("editorial"),
+								rs.getString("descripcion"), rs.getInt("cantEjemplares"),
 								rs.getBoolean("hayEjemplarDisponible"), rs.getString("CodISBN"), rs.getString("genero"),
 								rs.getString("URLcover"));
 						Prestamo prestamo = new Prestamo(rs.getInt("id"), rs.getDate("fechaSol"),
@@ -150,9 +149,14 @@ public class Manejador {
 		case "prestamo":
 			try {
 				s = con.createStatement();
-				rs = s.executeQuery("SELECT MAX(p.id) FROM prestamo p");
-				id = rs.getInt("id");
-				return id++;
+				rs = s.executeQuery("SELECT MAX(p.id) as 'id' FROM prestamo p");
+				if (rs.next()) {
+					id = rs.getInt("id");
+					id = id + 1;
+				} else {
+					id = 1;
+				}
+				return id;
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -162,18 +166,34 @@ public class Manejador {
 		return 0;
 	}
 
+	// Comparar cedula con contraseña para permitir ingreso
+	
+	public Boolean ingreso(int CI, String contrasena) {
+		
+		for (int i = 0; i < usuarios.size(); i++) {
+			
+			if(usuarios.get(i).getCI() == CI && usuarios.get(i).getPassword().equals(contrasena)) {
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	// Crear un Usuario
 
 	public void altaUsuario(int CI, String nombre, String apellido, String mail, String password,
-			TipoUsuario tipoUsuario, Orientacion orientacion) {
+			TipoUsuario tipoUsuario, Orientacion orientacion) throws Exception {
 		int id = generarID("usuario");
+		int tope = 2;
 		// Agregar a tabla usuario
 		try {
 			s = con.createStatement();
 			s.executeUpdate("INSERT INTO usuario(CI, id, nombre, apellido, mail, password) values(" + CI + ", " + id
 					+ ", '" + nombre + "', '" + apellido + "', '" + mail + "',  '" + password + "');");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception();
 		}
 
 		// Agregar a tabla profesor/estudiante/bibliotecario
@@ -185,6 +205,7 @@ public class Manejador {
 			try {
 				s.executeUpdate("INSERT INTO profesor(id, orientacion) values(" + id + ", '" + orientacion + "');");
 			} catch (Exception e) {
+				throw new Exception();
 			}
 			break;
 
@@ -193,9 +214,10 @@ public class Manejador {
 			usuarios.add(new Estudiante(id, id, nombre, apellido, mail, password, orientacion, 0));
 
 			try {
-				s.executeUpdate("INSERT INTO estudiante(id, orientacion) values(" + id + ", '" + orientacion + "');");
+				s.executeUpdate("INSERT INTO estudiante(id, orientacion, tope) values(" + id + ", '" + orientacion
+						+ "', " + tope + ");");
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new Exception();
 			}
 			break;
 
@@ -206,8 +228,7 @@ public class Manejador {
 			try {
 				s.executeUpdate("INSERT INTO bibliotecario(id) values(" + id + ");");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new Exception();
 			}
 			break;
 		}
@@ -233,14 +254,13 @@ public class Manejador {
 	// Modificar Usuario
 
 	public void modificarUsuario(int CI, String nombre, String apellido, String mail, String password,
-			TipoUsuario tipoUsuario, Orientacion orientacion, int tope) {
+			TipoUsuario tipoUsuario, Orientacion orientacion) {
 
 		// Actualizar tabla usuario
 		try {
 			s = con.createStatement();
-			s.executeUpdate("update usuario(CI, id, nombre, apellido, mail, password) set nombre = '" + nombre
-					+ "', apellido = '" + apellido + "', mail = '" + mail + "', password =  '" + password
-					+ "' where Usuario.CI = " + CI + ";");
+			s.executeUpdate("update usuario set nombre = '" + nombre
+					+ "', apellido = '" + apellido + "', mail = '" + mail + "' where Usuario.CI = " + CI + ";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -275,8 +295,12 @@ public class Manejador {
 		if (libro.isHayEjemplarDisponible()) {
 			try {
 				s = con.createStatement();
-				s.executeUpdate("INSERT INTO prestamo(id, devuelto, fechaDev, FechaSol, ciUsario, idLibro) values(" + id
-						+ ", " + 0 + ", \"" + fechaDevolucion + "\", \"" + fechaSolicitado + "\", \"" + usuario.getCI()
+				
+			    java.sql.Date sqlDateSol = new java.sql.Date(fechaSolicitado.getTime());
+			    java.sql.Date sqlDateDev = new java.sql.Date(fechaDevolucion.getTime());
+				
+				s.executeUpdate("INSERT INTO prestamo(id, devuelto, fechaDev, FechaSol, idUsuario, idLibro) values(" + id
+						+ ", " + 0 + ", \"" + sqlDateDev + "\", \"" + sqlDateSol + "\", \"" + usuario.getId()
 						+ "\",  \"" + libro.getAniCode() + "\");");
 				new Prestamo(id, fechaSolicitado, fechaDevolucion, false, usuario, libro);
 
@@ -332,20 +356,21 @@ public class Manejador {
 
 	public void altaLibro(String aniCode, String titulo, String autor, int anoPub, int nroEdicion, String editorial,
 			String descripcion, int cantEjemplares, boolean hayEjemplarDisponible, String codigoISBN, String genero,
-			String imagUrl) {
+			String imagUrl) throws Exception {
 
 		// Agregar a tabla libro
 		try {
 			s = con.createStatement();
 			s.executeUpdate(
-					"INSERT INTO libro(titulo, CodLibro, CodISBN, genero, autor, añoPub, descripcion, editorial, URLcover, cant, disponible) values("
-							+ titulo + ", " + aniCode + ", " + codigoISBN + ", '" + genero + "', '" + autor + "', "
-							+ anoPub + ", '" + descripcion + "', '" + editorial + "', '" + imagUrl + "', "
-							+ cantEjemplares + ", " + hayEjemplarDisponible + ");");
+					"INSERT INTO libro(titulo, CodLibro, CodISBN, nroEdicion, genero, autor, añoPub, descripcion, editorial, URLcover, cant, hayEjemplaresDisp, cantEjemplaresDisp) values('"
+							+ titulo + "', '" + aniCode + "', '" + codigoISBN + "', " + nroEdicion + ", '" + genero
+							+ "', '" + autor + "', " + anoPub + ", '" + descripcion + "', '" + editorial + "', '"
+							+ imagUrl + "', " + cantEjemplares + ", " + hayEjemplarDisponible + ", " + cantEjemplares
+							+ ");");
 			libros.add(new Libro(aniCode, titulo, autor, anoPub, nroEdicion, editorial, descripcion, cantEjemplares,
 					hayEjemplarDisponible, codigoISBN, genero, imagUrl));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception();
 		}
 
 	}
@@ -356,6 +381,21 @@ public class Manejador {
 
 		return libros;
 
+	}
+
+	// Traer libro por su codigo Anima
+
+	public Libro traerLibroPorCodigo(String aniCode) {
+		
+		for (int i = 0; i < libros.size(); i++) {
+			
+			if (libros.get(i).getAniCode().equals(aniCode)) {
+				
+				return libros.get(i);
+				
+			}
+		}
+		return null;
 	}
 
 	// Dar de baja un prestamo
